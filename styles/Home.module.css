@@ -1,0 +1,287 @@
+.container {
+  position: relative;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.main footer,
+.main section {
+  width: 100%;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.intro strong {
+  color: #dd4814;
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000 0%, #000 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+}
+
+.background ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.background strong {
+  /* color: #dd4814; */
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000 0%, #000 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+}
+
+.background a {
+  color: #dd4814;
+  text-decoration: none;
+  position: relative;
+}
+
+.background a:hover {
+  color: #dd4814;
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000 0%, #000 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.main footer h4,
+.main section h4 {
+  font-size: 1.3em;
+}
+
+.main footer h4,
+.main section h4 {
+  margin-top: 0;
+}
+
+.main footer h3,
+.main section h3 {
+  font-size: 1.5em;
+  /* margin-bottom: 0; */
+}
+
+.eventYear {
+  margin-bottom: 30px;
+}
+
+.eventYear:last-child {
+  margin: 0;
+}
+
+.eventYear h2 {
+  color: #dd4814;
+  /* margin-bottom: 12px; */
+}
+
+.introCTA {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.eventLogos {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.eventCircle {
+  width: 95px;
+  height: 95px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 12px 12px 0;
+  background-color: #fff;
+  border: 2px solid #fff;
+  box-shadow: 0px 10px 30px -5px rgba(#000, 0.5);
+}
+
+.eventCircle:hover {
+  background-color: #dd4814;
+  border: 2px solid #dd4814 !important;
+}
+
+.cover {
+  height: 100%;
+  width: 100%;
+}
+
+.description {
+  max-width: calc(100% - 200px);
+  padding-left: 2em;
+  margin: 0;
+}
+
+.description h2 {
+  margin: 0;
+}
+
+.introAvatar {
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  /* margin-top: 2em; */
+  border: 2px solid #fff !important;
+  background: #fff;
+  border-radius: 50% !important;
+}
+
+.social {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.social a {
+  display: inline-block;
+  margin: 0 12px 0 0;
+}
+
+.social a:last-child {
+  margin: 0 0 0 0;
+}
+
+.social img {
+  width: auto;
+  height: 46px;
+}
+
+.greet {}
+
+.introContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.introText {
+  width: calc(100% - 200px);
+  height: 100%;
+  padding-left: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+@media (max-width: 770px) {
+  .container {
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .main {
+    font-size: 90%;
+  }
+
+  .main footer h3,
+  .main section h3 {
+    font-size: 1.3em;
+  }
+
+  .main footer h4,
+  .main section h4 {
+    font-size: 1.1em;
+  }
+
+  .introCTA {
+    /* transform: scale(0.6); */
+    display: none;
+  }
+
+  .introAvatar {
+    /* width: 100px;
+    height: 100px;
+    margin-bottom: 20px; */
+    display: none;
+  }
+
+  .intro {
+    padding-bottom: 20%;
+  }
+
+  .introContent {
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .introText {
+    width: 100%;
+    height: 100%;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+  }
+
+  .social img {
+    height: 36px;
+  }
+
+  /* .social a {
+    font-size: 0;
+    margin: 0 0 2%;
+  } */
+}
+
+@media (max-width: 610px) {
+  .social {
+    flex-direction: column;
+  }
+
+  .social a {
+    font-size: 0;
+    margin: 0 0 2%;
+  }
+
+  .eventLogos {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .eventCircle {
+    width: 22%;
+    max-width: 90px;
+    height: auto;
+    margin: 0;
+  }
+}
+
+@media (max-width: 390px) {
+
+  .greet,
+  .introCTA,
+  .background span {
+    display: none;
+  }
+
+  .background p {
+    margin-top: 0;
+  }
+}
