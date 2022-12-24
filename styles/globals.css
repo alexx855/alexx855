@@ -14,3 +14,34 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+strong {
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000 0%, #000 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+}
+
+a {
+  color: #dd4814;
+  text-decoration: none;
+  position: relative;
+}
+
+a:hover {
+  color: #dd4814;
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000 0%, #000 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+} 
+*/

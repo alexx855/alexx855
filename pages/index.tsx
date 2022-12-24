@@ -1,12 +1,13 @@
-/* eslint-disable react/no-unknown-property */
-import type { NextPage } from "next";
+import type { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { animated, useSpring } from "@react-spring/web";
 import { useRef } from "react";
+import { marked } from "marked";
+import readmeRawContent from '../README.md'
 
+// todo: add scroll action on click of down arrow and move to another file
 function DownIcon() {
   const props = useSpring({
     to: { opacity: 0.6 },
@@ -43,239 +44,95 @@ function DownIcon() {
   );
 }
 
-const POAPs = [
-  {
-    id: 5121844,
-    name: "HackMoney 2022 Staked Hacker",
-    image: "/poaps/5121844.png",
-    description: "",
-    date: "06-May-2022",
-  },
-  {
-    id: 4682243,
-    name: "DAOHacks Staked Hacker",
-    image: "/poaps/4682243.png",
-    description: "",
-    date: "08-Apr-2022",
-  },
-  {
-    id: 4481066,
-    name: "BuildQuest Staked Hacker",
-    image: "/poaps/4481066.png",
-    description: "",
-    date: "04-Mar-2022",
-  },
-  {
-    id: 3984334,
-    name: "Road to Web3 Staked Hacker",
-    image: "/poaps/3984334.png",
-    description: "",
-    date: "03-Feb-2022",
-  },
-];
+interface HomeProps {
+  sections: {
+    name: string
+    content: string
+  }[]
+}
 
-
-const Home: NextPage = () => {
+const Home: NextPage<HomeProps> = (props: HomeProps) => {
   const ref = useRef<IParallax>();
+  // first section is 0.8 of the screen without top gap, the other sections are 0.6 of the screen with 0.2 of the screen between them
+  const speedOffset = 0.266
+  const pages = (props.sections.length - 1) * 0.6 + 0.8 + (0.2 * (props.sections.length)) - speedOffset
+
   return (
     <>
       <Head>
-        <title>Alex Pedersen 🔗 alexx855.eth</title>
-        {/* TODO: get description from my Github pforile using the Github API  */}
+        <title>Alex Pedersen</title>
         <meta
           name="description"
-          content="Full stack developer with over 8 years of experience building web applications. Web3 and DevOps enthusiast. 🔗 alexx855.eth"
+          content="IT Nerd, Full Stack Developer, Web3 & DevOps 🔗 alexx855.eth"
         />
       </Head>
 
       <main className={styles.main}>
-        <Parallax pages={1.8}>
-          <ParallaxLayer offset={0} speed={1} factor={1}>
-            <div className={styles.container}>
-              <section className={styles.intro}>
-                <div className={styles.introContent}>
-                  <div className={styles.introAvatar}>
-                    <Image
-                      src="/avatar.jpg"
-                      alt="Alex Pedersen"
-                      layout="responsive"
-                      width={200}
-                      height={200}
-                      priority
-                    />
-                  </div>
+        <Parallax pages={pages} >
+          {props.sections.map((section, index) => {
+            // add prev section factor
+            const offset = index === 0 ? 0 : (0.8 + ((index - 1) * 0.6) + (index * 0.2))
+            return (
+              <ParallaxLayer
+                key={index}
+                offset={offset}
+                factor={
+                  // acculate the factor for each section, starting with 0.8 for the second section
+                  index === 0 ? 0.8 : 0.6
+                }
+                speed={index === 0 ? 0.4 : index % 2 === 0 ? 0.6 : 0.2}
+                style={{
+                  // backgroundColor: `hsl(${index * 50}, 100%, 50%)`,
+                }}
+              >
+                <div className={styles.container}>
+                  <section>
+                    <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                  </section>
 
-                  <div className={styles.introText}>
-                    <h3
-                      style={{
-                        marginTop: 0,
-                      }}
-                      className={styles.greet}
-                    >
-                      <strong>Hello there!</strong>
-                    </h3>
-                    <h1
-                      style={{
-                        margin: 0,
-                      }}
-                    >
-                      I{"'"}m Alex, a fullstack developer with over 8 years of
-                      experience building web applications.
-                    </h1>
-                    <h2
-                      style={{
-                        marginBottom: 0,
-                      }}
-                    >
-                      My specialty is in <strong>Angular</strong>,{" "}
-                      <strong>Node</strong> and <strong>PHP</strong>.
-                    </h2>
-                  </div>
+                  {index === 0 && (
+                    <div className={styles.introCTA}>
+                      <DownIcon />
+                    </div>)}
                 </div>
-                <h3>
-                  Besides being well-versed in most of the latest tech, I am
-                  also proficient in <strong>React.Js</strong>,{" "}
-                  <strong>Next.Js</strong>, <strong>Laravel</strong>,{" "}
-                  <strong>Graphql</strong>, <strong>Docker</strong>,{" "}
-                  <strong>Kubernetes</strong>, <strong>AWS</strong>,{" "}
-                  <strong>GCP</strong> and more.
-                </h3>
-
-                <div className={styles.introCTA}>
-                  <DownIcon />
-                </div>
-              </section>
-            </div>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={0.8}
-            factor={0.6}
-            speed={0}
-            style={{
-              backgroundColor: "rgba(0,0,0,0.5)",
-            }
-            }
-          >
-            <div className={styles.container}>
-              <section className={styles.web3}>
-                <h3>I am a Web3 and DevOps enthusiast.</h3>
-                <h4>i{"'"}ve been on the following hackathons and workshops:</h4>
-                <div className={styles.eventLogos}>
-                  {POAPs.map((poap) => (
-                    <a
-                      key={poap.id}
-                      target="_blank"
-                      rel="noreferrer"
-                      href={`https://app.poap.xyz/token/${poap.id}/`}
-                      className={styles.eventCircle}
-                    >
-                      <Image
-                        width={95}
-                        layout="responsive"
-                        height={95}
-                        alt={`${poap.name} ${poap.date}`}
-                        src={poap.image}
-                      />
-                    </a>
-                  ))}
-                </div>
-                {/* <p>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://app.poap.xyz/scan/alexx855.eth"
-                  >
-                    🔗 alexx855.eth POAPs
-                  </a>
-                </p> */}
-              </section>
-            </div>
-          </ParallaxLayer>
-
-          <ParallaxLayer
-            offset={1.3}
-            factor={0.4}
-            speed={0.5}
-            style={{
-              // backgroundColor: "rgba(0,0,0,0.5)",
-            }}
-          >
-
-            <div className={styles.container}>
-              <footer className={styles.footer}>
-                <h4
-                  style={{
-                    marginTop: 0,
-                  }}
-                >
-                  Contact me:
-                </h4>
-                <div className={styles.social}>
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://github.com/alexx855/"
-                  >
-                    <Image
-                      width={96}
-                      layout="raw"
-                      height={28}
-                      alt="Github Badge"
-                      src="/badges/GitHub-100000.svg"
-                    />
-                  </a>
-
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://www.linkedin.com/in/alexx855"
-                  >
-                    <Image
-                      width={111}
-                      layout="raw"
-                      height={28}
-                      alt="Linkedin Badge"
-                      src="/badges/LinkedIn-0077B5.svg"
-                    />
-                  </a>
-
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://discord.com/users/alexx855.eth#9229"
-                  >
-                    <Image
-                      width={105}
-                      layout="raw"
-                      height={28}
-                      alt="Discord Badge"
-                      src="/badges/Discord-5865F2.svg"
-                    />
-                  </a>
-
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    href="https://twitter.com/alexx855"
-                  >
-                    <Image
-                      width={104}
-                      layout="raw"
-                      height={28}
-                      alt="Twitter Badge"
-                      src="/badges/Twitter-1DA1F2.svg"
-                    />
-                  </a>
-                </div>
-              </footer>
-            </div>
-          </ParallaxLayer>
+              </ParallaxLayer>
+            )
+          })}
 
         </Parallax>
+
       </main>
     </>
   );
 };
+
+// load the readme file and parse it 
+export async function getStaticProps(context: GetStaticPropsContext) {
+  let readmeTxt: string = readmeRawContent
+  // remove the line starts with '[![Website Badge]', it's the website badge
+  readmeTxt = readmeTxt.replace(/\[!\[Website Badge\].*\n/g, '')
+  // remove the comments from the other lines that i dont want to show in the readme
+  readmeTxt = readmeTxt.replace(/<!--/g, '')
+  readmeTxt = readmeTxt.replace(/-->/g, '')
+  // split the readme into sections, each section starts with one or various # tag
+  const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
+  // map and parse the markdown content to html, add the slug as key, 
+  const sections: HomeProps['sections'] = secs.map(section => {
+    // extrat the section name from the first line
+    const name = section.split('\n')[0].replace(/#/g, '').trim().toLowerCase().replace(/ /g, '-')
+    // remove the first line from the content, and parse the markdown to html
+    const content = marked(section)
+    return {
+      name,
+      content
+    }
+  })
+
+  return {
+    props: {
+      sections
+    }
+  }
+}
 
 export default Home;
