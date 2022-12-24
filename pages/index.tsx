@@ -34,10 +34,10 @@ function DownIcon() {
         opacity: props.opacity,
       }}
     >
-      <g transform="translate(0,-15) scale(4)">
+      <g transform="translate(0,-15) scale(3)">
         <animated.path d="M23.245 4 12 18.374.781 4 0 4.619 12 20 24 4.609 23.245 4z"></animated.path>
       </g>
-      <g transform="translate(0,15) scale(4)">
+      <g transform="translate(0,15) scale(3)">
         <animated.path d="M23.245 4 12 18.374.781 4 0 4.619 12 20 24 4.609 23.245 4z"></animated.path>
       </g>
     </animated.svg>
@@ -86,7 +86,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
                 }}
               >
                 <div className={styles.container}>
-                  <section>
+                  <section className={ section.name }>
                     <div dangerouslySetInnerHTML={{ __html: section.content }} />
                   </section>
 

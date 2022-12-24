@@ -15,19 +15,25 @@ body {
   box-sizing: border-box;
 }
 
-/* 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-strong {
+h1, h2, h3, h4, h5, h6 {
+  color: #dd4814;
   text-decoration: none;
   background-image: linear-gradient(120deg, #000 0%, #000 100%);
   background-repeat: no-repeat;
   background-size: 100% 0.2em;
   background-position: 0 88%;
+  display: inline-block;
+  margin: 0;
+}
+
+p{
+  display: block;
+  clear: both;
+  overflow: hidden;
+}
+
+.hello-there img {
+  float: left;
 }
 
 a {
@@ -44,4 +50,3 @@ a:hover {
   background-size: 100% 0.2em;
   background-position: 0 88%;
 } 
-*/
