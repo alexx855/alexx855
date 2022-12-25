@@ -2,7 +2,7 @@ import type { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { marked } from "marked";
 import readmeRawContent from '../README.md'
 import { PixiBackground } from "../components/pixi-background";
@@ -21,47 +21,54 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
   const ref = useRef<IParallax | null>(null);
   const bgContainer = useRef<HTMLDivElement | null>(null);
   const pixiBgRef = useRef<PixiBackground | null>(null);
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
+  // const [width, setWidth] = useState(0);
+  // const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth);
-      setHeight(window.innerHeight);
-    }
 
-    handleResize();
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+
+    };
   }, []);
 
   useEffect(() => {
-    if (!bgContainer || !bgContainer.current || !ref || !ref.current) return;
-    const canvasbgContainer = bgContainer.current;
+    const handleResize = () => {
+      // TODO: move to SSR component
+      setTimeout(() => {
+        if (bgContainer === null || bgContainer.current === null) return;
+        const canvasbgContainer = bgContainer.current;
 
-    if (canvasbgContainer && canvasbgContainer.childElementCount > 0) {
-      canvasbgContainer.lastChild?.remove();
+        if (canvasbgContainer && canvasbgContainer.childElementCount > 0) {
+          canvasbgContainer.lastChild?.remove();
+        }
+
+        const pixiApp = new PixiBackground({
+          backgroundColor: '#162233',
+          antialias: true,
+          resolution: 1,
+          // resolution: window.devicePixelRatio || 1,
+          autoDensity: true,
+          width: window.innerWidth,
+          height: window.innerHeight * pages,
+          container: canvasbgContainer,
+        });
+
+        canvasbgContainer?.appendChild(pixiApp.view as any);
+        pixiBgRef.current = pixiApp;
+        pixiBgRef.current.startBackground();
+      }, 100);
     }
 
-    const pixiApp = new PixiBackground({
-      backgroundColor: '#162233',
-      antialias: true,
-      width,
-      height: height * pages,
-      container: canvasbgContainer,
-    });
-
-    canvasbgContainer?.appendChild(pixiApp.view as any);
-    pixiBgRef.current = pixiApp;
-    pixiBgRef.current.startBackground();
-
+    handleResize();
+    window.addEventListener('resize', handleResize);
     return () => {
       if (pixiBgRef.current) {
         pixiBgRef.current.destroy();
       }
-    };
-  }, [width, height, pages, ref]);
+      // window.removeEventListener('resize', handleResize);
+    }
+  }, [bgContainer, pages]);
 
   return (
     <>
@@ -75,38 +82,14 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 
       <main className={styles.main}>
         <Parallax pages={pages} className={styles.parallax} ref={ref}>
-
           <ParallaxLayer
             offset={0}
             factor={pages}
-            // speed={-0.234} 
-            style={{
-              // display: 'none'
-              // backgroundColor: `#dd4814`,
-              backgroundColor: `hsl( 50%, 100%, 50%)`,
-            }}
-
           >
             <div className={styles.background} ref={bgContainer}></div>
           </ParallaxLayer>
 
-          <ParallaxLayer
-            offset={0.6}
-            factor={0.2}
-            speed={-0.3}
-            style={{
-              // display: 'none'
-              // backgroundColor: `#dd4814`,
-              // backgroundColor: `hsl(${index * 50}, 100%, 50%)`,
-            }}
-          >
-            <div className={styles.container}>
-              <section>
-                <DownIcon />
-              </section>
-            </div>
-          </ParallaxLayer>
-
+          {/* sections from readme */}
           {props.sections.map((section, index) => {
             // accumulate prev sections factors, add 0.2 for the gap between sections
             const offset = index === 0 ? 0 : (0.8 + ((index - 1) * 0.6) + (index * 0.2))
@@ -117,8 +100,6 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
                 factor={index === 0 ? 0.8 : 0.6}
                 speed={index === 0 ? 0.4 : index % 2 === 0 ? 0.6 : 0.2} // different speed for each section
                 style={{
-                  // display: 'none'
-                  // backgroundColor: `#dd4814`,
                   // backgroundColor: `hsl(${index * 50}, 100%, 50%)`,
                 }}
               >
@@ -131,6 +112,26 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
             )
           })}
 
+          {/* 1st page down button */}
+          <ParallaxLayer offset={0.6} factor={0.2} speed={-0.3} >
+            <div className={styles.container}>
+              <section>
+                <button
+                  onClick={() => ref.current?.scrollTo(1)}
+                  style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    outline: 'none',
+                    cursor: 'pointer',
+                    fontSize: 0,
+                    padding: 0,
+                  }}
+                >
+                  <DownIcon />
+                </button>
+              </section>
+            </div>
+          </ParallaxLayer>
 
         </Parallax>
       </main>
