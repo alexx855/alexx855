@@ -2,17 +2,23 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  color: #fff;
-  background-color: #162233;
   font-family: "Ubuntu", sans-serif;
+  color: #fff;
+  background: #162233;
   line-height: 1.3;
-  /* background: #000; */
+  height: 100%;
+  width: 100%;
 }
 
 * {
   box-sizing: border-box;
+}
+
+#__next {
+  position: relative;
+  height: 100%; 
+  width: 100%;
+  overflow: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -30,6 +36,10 @@ p{
   display: block;
   clear: both;
   overflow: hidden;
+}
+
+.hello-there img {
+  float: left;
 }
 
 .hello-there img {

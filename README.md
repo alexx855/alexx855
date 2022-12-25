@@ -3,9 +3,7 @@
   <source media="(prefers-color-scheme: dark)" alt="Welcome to the dark side" srcset="https://raw.githubusercontent.com/alexx855/alexx855/master/public/stormtroopocat.png">
   <img align="left" alt="The force is with you" width="48" height="48" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
 </picture>
-<p>
-  I'm a Full Stack Developer with a focus on Web3 and DevOps.<br>I have a proven track record of delivering exceptional web and mobile projects.
-</p>
+<p>I'm a Full Stack Developer with a focus on Web3 and DevOps.<br>I have a proven track record of delivering exceptional web and mobile projects.</p>
 
 ## Skills
 - Experienced in JavaScript, TypeScript, Node.js, Angular, Next.js, and React
