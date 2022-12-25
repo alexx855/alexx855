@@ -2,48 +2,11 @@ import type { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { animated, useSpring } from "@react-spring/web";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { marked } from "marked";
 import readmeRawContent from '../README.md'
-
-// todo: add scroll action on click of down arrow and move to another file
-function DownIcon() {
-  const props = useSpring({
-    to: { opacity: 0.6 },
-    from: { opacity: 0 },
-    delay: 1000,
-    loop: true,
-  });
-
-  return (
-    <animated.svg
-      width="96"
-      height="96"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 96 96"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      style={{
-        transform: props.opacity
-          .to({
-            range: [0, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 1],
-            output: [1, 0.97, 0.9, 1.1, 0.9, 1.1, 1.03, 1],
-          })
-          .to((x) => `scale(${x})`),
-        opacity: props.opacity,
-      }}
-    >
-      <g transform="translate(0,-15) scale(4)">
-        <animated.path d="M23.245 4 12 18.374.781 4 0 4.619 12 20 24 4.609 23.245 4z"></animated.path>
-      </g>
-      <g transform="translate(0,15) scale(4)">
-        <animated.path d="M23.245 4 12 18.374.781 4 0 4.619 12 20 24 4.609 23.245 4z"></animated.path>
-      </g>
-    </animated.svg>
-  );
-}
-
+import { PixiBackground } from "../components/pixi-background";
+import { DownIcon } from "../components/down-icon";
 interface HomeProps {
   sections: {
     name: string
@@ -52,10 +15,53 @@ interface HomeProps {
 }
 
 const Home: NextPage<HomeProps> = (props: HomeProps) => {
-  const ref = useRef<IParallax>();
   // first section is 0.8 of the screen without top gap, the other sections are 0.6 of the screen with 0.2 of the screen between them
-  const speedOffset = 0.266
+  const speedOffset = 0.234
   const pages = (props.sections.length - 1) * 0.6 + 0.8 + (0.2 * (props.sections.length)) - speedOffset
+  const ref = useRef<IParallax | null>(null);
+  const bgContainer = useRef<HTMLDivElement | null>(null);
+  const pixiBgRef = useRef<PixiBackground | null>(null);
+  const [width, setWidth] = useState(0);
+  const [height, setHeight] = useState(0);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth);
+      setHeight(window.innerHeight);
+    }
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!bgContainer || !bgContainer.current || !ref || !ref.current) return;
+    const canvasbgContainer = bgContainer.current;
+
+    if (canvasbgContainer && canvasbgContainer.childElementCount > 0) {
+      canvasbgContainer.lastChild?.remove();
+    }
+
+    const pixiApp = new PixiBackground({
+      backgroundColor: '#162233',
+      antialias: true,
+      width,
+      height: height * pages,
+      container: canvasbgContainer,
+    });
+
+    canvasbgContainer?.appendChild(pixiApp.view as any);
+    pixiBgRef.current = pixiApp;
+    pixiBgRef.current.startBackground();
+
+    return () => {
+      if (pixiBgRef.current) {
+        pixiBgRef.current.destroy();
+      }
+    };
+  }, [width, height, pages, ref]);
 
   return (
     <>
@@ -68,39 +74,65 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
       </Head>
 
       <main className={styles.main}>
-        <Parallax pages={pages} >
+        <Parallax pages={pages} className={styles.parallax} ref={ref}>
+
+          <ParallaxLayer
+            offset={0}
+            factor={pages}
+            // speed={-0.234} 
+            style={{
+              // display: 'none'
+              // backgroundColor: `#dd4814`,
+              backgroundColor: `hsl( 50%, 100%, 50%)`,
+            }}
+
+          >
+            <div className={styles.background} ref={bgContainer}></div>
+          </ParallaxLayer>
+
+          <ParallaxLayer
+            offset={0.6}
+            factor={0.2}
+            speed={-0.3}
+            style={{
+              // display: 'none'
+              // backgroundColor: `#dd4814`,
+              // backgroundColor: `hsl(${index * 50}, 100%, 50%)`,
+            }}
+          >
+            <div className={styles.container}>
+              <section>
+                <DownIcon />
+              </section>
+            </div>
+          </ParallaxLayer>
+
           {props.sections.map((section, index) => {
-            // add prev section factor
+            // accumulate prev sections factors, add 0.2 for the gap between sections
             const offset = index === 0 ? 0 : (0.8 + ((index - 1) * 0.6) + (index * 0.2))
             return (
               <ParallaxLayer
                 key={index}
                 offset={offset}
-                factor={
-                  // acculate the factor for each section, starting with 0.8 for the second section
-                  index === 0 ? 0.8 : 0.6
-                }
-                speed={index === 0 ? 0.4 : index % 2 === 0 ? 0.6 : 0.2}
+                factor={index === 0 ? 0.8 : 0.6}
+                speed={index === 0 ? 0.4 : index % 2 === 0 ? 0.6 : 0.2} // different speed for each section
                 style={{
+                  // display: 'none'
+                  // backgroundColor: `#dd4814`,
                   // backgroundColor: `hsl(${index * 50}, 100%, 50%)`,
                 }}
               >
                 <div className={styles.container}>
-                  <section>
+                  <section className={styles.content}>
                     <div dangerouslySetInnerHTML={{ __html: section.content }} />
                   </section>
-
-                  {index === 0 && (
-                    <div className={styles.introCTA}>
-                      <DownIcon />
-                    </div>)}
                 </div>
               </ParallaxLayer>
             )
           })}
 
-        </Parallax>
 
+        </Parallax>
       </main>
     </>
   );

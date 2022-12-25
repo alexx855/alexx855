@@ -2,46 +2,21 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  color: #fff;
-  background-color: #162233;
   font-family: "Ubuntu", sans-serif;
+  color: #fff;
+  background: #162233;
   line-height: 1.3;
-  /* background: #000; */
+  height: 100%;
+  width: 100%;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-strong {
-  text-decoration: none;
-  background-image: linear-gradient(120deg, #000 0%, #000 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 0.2em;
-  background-position: 0 88%;
-}
-
-a {
-  color: #dd4814;
-  text-decoration: none;
+#__next {
   position: relative;
+  height: 100%; 
+  width: 100%;
+  overflow: hidden;
 }
-
-a:hover {
-  color: #dd4814;
-  text-decoration: none;
-  background-image: linear-gradient(120deg, #000 0%, #000 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 0.2em;
-  background-position: 0 88%;
-} 
-*/
