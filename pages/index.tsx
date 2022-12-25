@@ -7,6 +7,7 @@ import { marked } from "marked";
 import readmeRawContent from '../README.md'
 import { PixiBackground } from "../components/pixi-background";
 import { DownIcon } from "../components/down-icon";
+
 interface HomeProps {
   sections: {
     name: string
