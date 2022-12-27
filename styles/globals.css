@@ -36,14 +36,11 @@ p{
   display: block;
   clear: both;
   overflow: hidden;
+  background: #162233;
 }
 
-.hello-there img {
-  float: left;
-}
-
-.hello-there img {
-  float: left;
+li{
+  background: #162233;
 }
 
 a {

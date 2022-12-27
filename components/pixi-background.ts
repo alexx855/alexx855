@@ -8,13 +8,15 @@ export class PixiBackground extends Application {
 
 	constructor(options: IPixiBackgroundOptions) {
 		super(options);
-		this.container = options.container; 
+		this.container = options.container;
 	}
 
 	async startBackground() {
 		// Get the texture for star.
-		const starTexture = Texture.from('/star.png');
-		
+		const starWhite = Texture.from('/star.png');
+		const starBlue = Texture.from('/star_blue.png');
+		const starYellow = Texture.from('/star_yellow.png');
+
 		const starAmount = 1000;
 		let cameraZ = 0;
 		const fov = 20;
@@ -23,12 +25,16 @@ export class PixiBackground extends Application {
 		let warpSpeed = 0;
 		const starStretch = 5;
 		const starBaseSize = 0.05;
-		
+
 		// Create the stars
 		const stars: any[] = [];
 		for (let i = 0; i < starAmount; i++) {
+
+			// change start color, random between yellow, blue and white
+			const sprite = new Sprite(Math.random() > 0.5 ? starWhite : Math.random() > 0.5 ? starBlue : starYellow);
+			
 			const star = {
-				sprite: new Sprite(starTexture),
+				sprite,
 				z: 0,
 				x: 0,
 				y: 0,
@@ -39,17 +45,15 @@ export class PixiBackground extends Application {
 			this.stage.addChild(star.sprite);
 			stars.push(star);
 		}
-		
+
 		function randomizeStar(star: { sprite?: Sprite; z: any; x: any; y: any; }, initial?: boolean | undefined) {
 			star.z = initial ? Math.random() * 2000 : cameraZ + Math.random() * 1000 + 2000;
-		
+
 			// Calculate star positions with radial random coordinate so no star hits the camera.
 			const deg = Math.random() * Math.PI * 2;
 			const distance = Math.random() * 50 + 1;
 			star.x = Math.cos(deg) * distance;
 			star.y = Math.sin(deg) * distance;
-
-			// TODO: change start color
 		}
 
 		// Listen for animate update
@@ -60,12 +64,12 @@ export class PixiBackground extends Application {
 			for (let i = 0; i < starAmount; i++) {
 				const star = stars[i];
 				if (star.z < cameraZ) randomizeStar(star);
-		
+
 				// Map star 3d position to 2d with really simple projection
 				const z = star.z - cameraZ;
 				star.sprite.x = star.x * (fov / z) * this.renderer.screen.width + this.renderer.screen.width / 2;
 				star.sprite.y = star.y * (fov / z) * this.renderer.screen.width + this.renderer.screen.height / 2;
-		
+
 				// Calculate star scale & rotation.
 				const dxCenter = star.sprite.x - this.renderer.screen.width / 2;
 				const dyCenter = star.sprite.y - this.renderer.screen.height / 2;
@@ -78,9 +82,6 @@ export class PixiBackground extends Application {
 				star.sprite.rotation = Math.atan2(dyCenter, dxCenter) + Math.PI / 2;
 			}
 		});
-
-
-		// this.start();
 	}
 
 	destroy(removeView?: boolean | undefined, stageOptions?: boolean | IDestroyOptions | undefined): void {
@@ -90,7 +91,7 @@ export class PixiBackground extends Application {
 
 	resize() {
 		console.log('resize')
-		// this.renderer?.resize(this.container.clientWidth, this.container.clientHeight * this.pages);
+		// this.renderer?.resize(this.container.clientWidth, this.container.clientHeight);
 	}
 
 }

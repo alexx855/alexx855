@@ -2,11 +2,11 @@ import type { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { marked } from "marked";
 import readmeRawContent from '../README.md'
-import { PixiBackground } from "../components/pixi-background";
 import { DownIcon } from "../components/down-icon";
+import { Background } from "../components/background-no-ssr";
 
 interface HomeProps {
   sections: {
@@ -20,56 +20,6 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
   const speedOffset = 0.234
   const pages = (props.sections.length - 1) * 0.6 + 0.8 + (0.2 * (props.sections.length)) - speedOffset
   const ref = useRef<IParallax | null>(null);
-  const bgContainer = useRef<HTMLDivElement | null>(null);
-  const pixiBgRef = useRef<PixiBackground | null>(null);
-  // const [width, setWidth] = useState(0);
-  // const [height, setHeight] = useState(0);
-
-  useEffect(() => {
-
-
-    return () => {
-
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleResize = () => {
-      // TODO: move to SSR component
-      setTimeout(() => {
-        if (bgContainer === null || bgContainer.current === null) return;
-        const canvasbgContainer = bgContainer.current;
-
-        if (canvasbgContainer && canvasbgContainer.childElementCount > 0) {
-          canvasbgContainer.lastChild?.remove();
-        }
-
-        const pixiApp = new PixiBackground({
-          backgroundColor: '#162233',
-          antialias: true,
-          resolution: 1,
-          // resolution: window.devicePixelRatio || 1,
-          autoDensity: true,
-          width: window.innerWidth,
-          height: window.innerHeight * pages,
-          container: canvasbgContainer,
-        });
-
-        canvasbgContainer?.appendChild(pixiApp.view as any);
-        pixiBgRef.current = pixiApp;
-        pixiBgRef.current.startBackground();
-      }, 100);
-    }
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      if (pixiBgRef.current) {
-        pixiBgRef.current.destroy();
-      }
-      // window.removeEventListener('resize', handleResize);
-    }
-  }, [bgContainer, pages]);
 
   return (
     <>
@@ -83,11 +33,12 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 
       <main className={styles.main}>
         <Parallax pages={pages} className={styles.parallax} ref={ref}>
+          {/* background */}
           <ParallaxLayer
             offset={0}
             factor={pages}
           >
-            <div className={styles.background} ref={bgContainer}></div>
+            <Background />
           </ParallaxLayer>
 
           {/* sections from readme */}
@@ -105,7 +56,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
                 }}
               >
                 <div className={styles.container}>
-                  <section className={styles.content}>
+                  <section className={styles[section.name]}>
                     <div dangerouslySetInnerHTML={{ __html: section.content }} />
                   </section>
                 </div>
@@ -142,6 +93,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
 
 // load the readme file and parse it 
 export async function getStaticProps(context: GetStaticPropsContext) {
+  // const readmeRawContent = await (await require('fs')).readFileSync('README.md', 'utf8')
   let readmeTxt: string = readmeRawContent
   // remove the line starts with '[![Website Badge]', it's the website badge
   readmeTxt = readmeTxt.replace(/\[!\[Website Badge\].*\n/g, '')
