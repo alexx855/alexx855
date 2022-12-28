@@ -38,12 +38,26 @@ export function Background() {
 		}
 	}, []);
 
-	return (<div style={{
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		zIndex: 1,
-		width: '100%',
-		height: '100%',
-	}} ref={bgContainer}></div>)
+	return (<>
+		<div style={{
+			position: 'absolute',
+			top: 0,
+			left: 0,
+			zIndex: 1,
+			width: '100%',
+			height: '100%',
+		}} ref={bgContainer}>
+		</div>
+
+		<div style={{
+				position: 'absolute',
+				top: 0,
+				left: 0,
+				zIndex: 2,
+				width: '100%',
+				height: '100%'
+			}}
+		>
+		</div>
+	</>)
 }
