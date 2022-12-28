@@ -42,6 +42,17 @@
   margin-top: 0;
 }
 
+.logos{
+  height: 100%;
+  width: auto;
+  opacity: 0.6;
+}
+
+.logos svg{
+  height: 100%;
+  width: auto;
+}
+
 @media (max-width: 770px) {
   .container {
     max-width: 100%;

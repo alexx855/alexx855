@@ -1,6 +1,6 @@
 import type { GetStaticPropsContext, NextPage } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
+import styles from "../styles/home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { useRef } from "react";
 import { marked } from "marked";
@@ -9,6 +9,10 @@ import { DownIcon } from "../components/down-icon";
 import { Background } from "../components/background-no-ssr";
 
 interface HomeProps {
+  logos: {
+    name: string
+    content: string // svg content
+  }[]
   sections: {
     name: string
     content: string
@@ -41,6 +45,18 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
             <Background />
           </ParallaxLayer>
 
+          {/* logos top */}
+          <ParallaxLayer
+            offset={0}
+            factor={0.1}
+          >
+            <div className={styles.container} style={{ justifyContent: 'space-between', height: '100%', overflow: 'hidden', paddingBottom: 0 }}>
+              {props.logos.map(
+                (logo, index) => (<div key={index} className={styles.logos} dangerouslySetInnerHTML={{ __html: logo.content }}></div>)
+              )}
+            </div>
+          </ParallaxLayer>
+
           {/* sections from readme */}
           {props.sections.map((section, index) => {
             // accumulate prev sections factors, add 0.2 for the gap between sections
@@ -57,7 +73,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
               >
                 <div className={styles.container}>
                   <section className={styles[section.name]}>
-                    <div dangerouslySetInnerHTML={{ __html: section.content }} />
+                    <div dangerouslySetInnerHTML={{ __html: section.content }}></div>
                   </section>
                 </div>
               </ParallaxLayer>
@@ -97,14 +113,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   let readmeTxt: string = readmeRawContent
   // remove the line starts with '[![Website Badge]', it's the website badge
   readmeTxt = readmeTxt.replace(/\[!\[Website Badge\].*\n/g, '')
-  // remove the comments from the other lines that i dont want to show in the readme
+  // remove the comments from the other lines that i don't want to show in the readme
   readmeTxt = readmeTxt.replace(/<!--/g, '')
   readmeTxt = readmeTxt.replace(/-->/g, '')
   // split the readme into sections, each section starts with one or various # tag
   const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
   // map and parse the markdown content to html, add the slug as key, 
   const sections: HomeProps['sections'] = secs.map(section => {
-    // extrat the section name from the first line
+    // extract the section name from the first line
     const name = section.split('\n')[0].replace(/#/g, '').trim().toLowerCase().replace(/ /g, '-')
     // remove the first line from the content, and parse the markdown to html
     const content = marked(section)
@@ -114,8 +130,22 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     }
   })
 
+  // load the logos from the public/logos folder and return the name and the svg content
+  const fs = await require('fs')
+  const logos = await Promise.all(
+    await fs.readdirSync('public/logos').filter((file: string) => file.endsWith('.svg')).map(async (file: string) => {
+      const name = file.replace('.svg', '')
+      const content = await fs.readFileSync(`public/logos/${file}`, 'utf8')
+      return {
+        name,
+        content
+      }
+    })
+  )
+
   return {
     props: {
+      logos,
       sections
     }
   }
