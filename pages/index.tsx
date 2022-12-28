@@ -46,7 +46,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
           </ParallaxLayer>
 
           {/* logos top */}
-          <ParallaxLayer
+          {/* <ParallaxLayer
             offset={0}
             factor={0.1}
           >
@@ -55,7 +55,7 @@ const Home: NextPage<HomeProps> = (props: HomeProps) => {
                 (logo, index) => (<div key={index} className={styles.logos} dangerouslySetInnerHTML={{ __html: logo.content }}></div>)
               )}
             </div>
-          </ParallaxLayer>
+          </ParallaxLayer> */}
 
           {/* sections from readme */}
           {props.sections.map((section, index) => {
