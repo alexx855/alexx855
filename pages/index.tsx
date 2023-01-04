@@ -122,13 +122,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const sections: HomeProps['sections'] = secs.map(section => {
     // extract the section name from the first line
     const name = section.split('\n')[0].replace(/#/g, '').trim().toLowerCase().replace(/ /g, '-')
-    // remove the first line from the content, and parse the markdown to html
+    // markdown to html
     const content = marked(section)
     return {
       name,
       content
     }
-  })
+  }) 
 
   // load the logos from the public/logos folder and return the name and the svg content
   const fs = await require('fs')
