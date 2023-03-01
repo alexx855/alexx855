@@ -12,4 +12,10 @@
     "editor.detectIndentation": false,
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
+    "[markdown]": {
+      "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
   }
