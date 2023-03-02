@@ -4,7 +4,7 @@ import styles from "../styles/home.module.css";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { useRef } from "react";
 import readmeRawContent from '../README.md'
-import { Background } from "../components/background-no-ssr";
+// import { Background } from "../components/background-no-ssr";
 import POAPs, { IPOAPsProps } from "../components/poaps";
 import ScrollButton from "../components/scroll-button";
 import About from "../components/about";
@@ -70,19 +70,19 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
 
       <main className={styles.main}>
         <Parallax pages={totalSections} className={styles.parallax} ref={ref}>
-          <ParallaxLayer
+          {/* <ParallaxLayer
             key={0}
             offset={0}
             factor={totalSections}
           >
             <Background />
-          </ParallaxLayer>
+          </ParallaxLayer> */}
 
           <ParallaxLayer
             key={1}
             offset={0}
             factor={0.8}
-            // speed={0.4}
+            speed={0.4}
             style={{
               // backgroundColor: `hsl(${0 * 50}, 100%, 50%)`,
             }}
@@ -95,7 +95,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
           <ParallaxLayer 
             offset={0.8}
             factor={0.2}
-          // speed={0}
+            speed={0}
           >
             <div className={styles.container}>
               <ScrollButton onClick={() => ref.current?.scrollTo(1)} />
@@ -106,7 +106,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
             key={2}
             offset={1}
             factor={0.8}
-            // speed={0.2}
+            speed={0.4}
             style={{
               // backgroundColor: `hsl(${1 * 50}, 100%, 50%)`,
             }}
@@ -120,7 +120,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
             key={3}
             offset={1.8}
             factor={0.4}
-            // speed={0.2}
+            speed={0.2}
             style={{
               // backgroundColor: `hsl(${2 * 50}, 100%, 50%)`,
             }}
@@ -134,7 +134,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
             key={4}
             offset={2.2}
             factor={0.4}
-            // speed={0.2}
+            speed={0}
             style={{
               // backgroundColor: `hsl(${3 * 50}, 100%, 50%)`,
             }}
@@ -209,7 +209,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     // substring to  </picture>
     about = about.substring(about.indexOf('</picture>') + 10)
     // remove the first line, and split the other lines into an array
-    const skills = secs[1].split('\n').slice(1).map(s => s.trim())
+    let skills = secs[1].split('\n').slice(1).map(s => s.substring(1).trim())
 
     return {
       props: {
