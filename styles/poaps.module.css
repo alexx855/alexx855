@@ -1,0 +1,74 @@
+.poaps {
+  width: 100%;
+}
+
+.poaps p {
+  margin-top: 0;
+}
+
+.content div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  margin-top: 1rem;
+  box-sizing: content-box;
+}
+
+.content a {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  display: block;
+  color: #fff;
+}
+
+.content a span {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 140%;
+  margin-left: -20%;
+  padding: 4px 0;
+  text-align: center;
+  border-radius: 12px;
+  background: #162233;
+  border-radius: 20px;
+}
+
+.content a:hover span {
+  display: block;
+}
+
+.content a img {
+  width: 100%;
+  height: auto;
+}
+
+.content a:hover img {
+  transform: scale(1.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+
+@media (max-width: 770px) {
+  .content a {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    color: #fff;
+  }
+
+  .content {
+    margin: 0 -1rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .content div {
+    display: inline-flex;
+    padding: 0 1rem;
+  }
+
+}
