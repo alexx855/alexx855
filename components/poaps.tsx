@@ -38,7 +38,8 @@ export default function POAPs({ poaps }: IPOAPsProps) {
     <section id="poaps" className={styles.poaps}>
       <h3>Web3 POAPs</h3>
       <div>
-        <p>proof of  are ... that  I ve received from hackathons and workshops,<Link href="https://app.poap.xyz/scan/alexx855.eth" target="_blank" rel="noopener noreferrer"> view all</Link></p>
+        {/* <Link href="https://app.poap.xyz/scan/alexx855.eth" target="_blank" rel="noopener noreferrer">view all</Link> */}
+        <p>POAP, short for Proof of Attendance Protocol, allows you to mint memories as digital mementos.</p>
       </div>
       <div className={styles.content}>
         <div>

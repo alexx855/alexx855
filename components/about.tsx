@@ -5,17 +5,17 @@ export default function About({ about }: { about: string }) {
   return (
     <section id="about" className={styles.about}>
       <div className={styles.content}>
+        <Image
+          src="/alexx855_aipunk_avatar_2023.png"
+          alt="Alex Pedersen ai punk avatar"
+          width={125}
+          height={125}
+          priority
+        />
         <div>
           <h1>Hello there</h1>
-          <Image
-            src="/alexx855_aipunk_avatar_2023.png"
-            alt="Alex Pedersen ai punk avatar"
-            width={125}
-            height={125}
-            priority
-          />
+          <p>{about}</p>
         </div>
-        <p>{about}</p>
       </div>
     </section>
   );
