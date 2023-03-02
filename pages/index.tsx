@@ -20,6 +20,19 @@ export interface HomeProps {
   about: string;
 }
 
+const schema = {
+  "@context": "https://schema.org/",
+  "@type": "Person",
+  "name": "Alex Pedersen",
+  "url": "https://alexpedersen.dev/",
+  "image": "https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png",
+  "jobTitle": "Full stack web developer",
+  "sameAs": [
+    "https://twitter.com/alexx855",
+    "https://www.linkedin.com/in/alexx855/"
+  ]
+}
+
 const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
   const speedOffset = 0
   const totalSections = 2.6
@@ -49,6 +62,10 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
         <meta name="twitter:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
         <meta name="twitter:image:alt" content="Alex Pedersen" />
         <meta name="twitter:domain" content="https://alexpedersen.dev/" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       </Head>
 
       <main className={styles.main}>
