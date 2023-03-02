@@ -57,6 +57,17 @@ p {
   position: relative;
   display: inline-block;
 }
+h1,
+h2,
+h3 {
+  color: #dd4814;
+  text-decoration: none;
+  background-image: linear-gradient(120deg, #000, #000);
+  background-repeat: no-repeat;
+  background-size: 100% 0.2em;
+  background-position: 0 88%;
+  display: inline-block;
+}
 
 h1::before,
 h2::before,

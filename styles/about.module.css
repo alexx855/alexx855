@@ -1,8 +1,8 @@
 .content {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
+  justify-content: center;
+    align-items: center;
   flex-wrap: nowrap;
 }
 
@@ -10,8 +10,9 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
+  align-content: flex-start;
 }
 
 .about h1 {
@@ -24,11 +25,22 @@
   display: inline-block;
 }
 
-@media (max-width: 770px) {
-  .content {
-    align-items: flex-start;
-    flex-direction: column;
+@media (max-width: 610px) {
+  .about h1 {
+    margin-bottom: 1rem;
   }
+  .content {
+    margin-bottom: 1rem;
+      flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    }
+    
+    .content img {
+      position: absolute;
+      top: -82px;
+      right: 0;
+    }
 
   .content div {
     margin-bottom: 1rem
