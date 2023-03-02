@@ -9,15 +9,11 @@
   align-items: center;
   width: 100%;
   flex-wrap: wrap;
+  /* overflow: hidden; */
 }
 
 .main section>div :last-child {
   margin-bottom: 0;
-}
-
-.hello-there img {
-  float: left;
-  margin-right: 1em;
 }
 
 .main section h1 {
@@ -35,22 +31,6 @@
 .main section h3 {
   font-size: 1.3em;
   margin-top: 0;
-}
-
-.main section h4 {
-  font-size: 1.1em;
-  margin-top: 0;
-}
-
-.logos{
-  height: 100%;
-  width: auto;
-  opacity: 0.6;
-}
-
-.logos svg{
-  height: 100%;
-  width: auto;
 }
 
 @media (max-width: 770px) {

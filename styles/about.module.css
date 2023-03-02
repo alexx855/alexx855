@@ -1,0 +1,36 @@
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+
+.content div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.about h1 {
+  white-space: nowrap;
+  margin-bottom: 0;
+}
+
+.about p {
+  margin-top: 0;
+  display: inline-block;
+}
+
+@media (max-width: 770px) {
+  .content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .content div {
+    margin-bottom: 1rem
+  }
+}

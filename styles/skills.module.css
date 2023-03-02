@@ -1,0 +1,26 @@
+.skills {}
+
+.skills ul {
+  margin-top: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.skills li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.skills li::before {
+  content: '';
+  display: block;
+  background: #162233;
+  width: 100%;
+  position: absolute;
+  height: 100%;
+  top: 0%;
+  left: 0%;
+  border-radius: 20px;
+  z-index: -1;
+}
