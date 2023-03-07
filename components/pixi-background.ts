@@ -1,38 +1,39 @@
-import { Application, Assets, IApplicationOptions, IDestroyOptions, Sprite, Texture, utils } from "pixi.js";
+import { Application, IApplicationOptions, IDestroyOptions, Sprite, Texture } from "pixi.js";
 interface IPixiBackgroundOptions extends IApplicationOptions {
 	container: HTMLDivElement;
 }
 
 export class PixiBackground extends Application {
 	container: HTMLDivElement | null;
+  warpSpeed: number = 0;
 
 	constructor(options: IPixiBackgroundOptions) {
 		super(options);
 		this.container = options.container;
 	}
 
-	async startBackground() {
+  startBackground() {
 		// Get the texture for star.
-		const starWhite = Texture.from('/star.png');
+		// const starWhite = Texture.from('/star.png');
 		const starBlue = Texture.from('/star_blue.png');
 		const starYellow = Texture.from('/star_yellow.png');
 
-		const starAmount = 1000;
+		const starAmount = 300;
 		let cameraZ = 0;
-		const fov = 20;
-		const baseSpeed = 0.025;
+		const fov = 100;
+		const baseSpeed = 0.05;
 		let speed = 0;
-		let warpSpeed = 0;
-		const starStretch = 5;
-		const starBaseSize = 0.05;
+		const starStretch = 2;
+    const starBaseSize = 0.08;
 
 		// Create the stars
 		const stars: any[] = [];
 		for (let i = 0; i < starAmount; i++) {
 
+      // const sprite = new Sprite(starWhite);
 			// change start color, random between yellow, blue and white
-			const sprite = new Sprite(Math.random() > 0.5 ? starWhite : Math.random() > 0.5 ? starBlue : starYellow);
-			
+      const sprite = new Sprite(Math.random() > 0.5 ? starBlue : starYellow);
+
 			const star = {
 				sprite,
 				z: 0,
@@ -54,12 +55,14 @@ export class PixiBackground extends Application {
 			const distance = Math.random() * 50 + 1;
 			star.x = Math.cos(deg) * distance;
 			star.y = Math.sin(deg) * distance;
+
 		}
 
 		// Listen for animate update
 		this.ticker.add((delta) => {
+
 			// Simple easing. This should be changed to proper easing function when used for real.
-			speed += (warpSpeed - speed) / 20;
+      speed += (this.warpSpeed - speed) / 20;
 			cameraZ += delta * 10 * (speed + baseSpeed);
 			for (let i = 0; i < starAmount; i++) {
 				const star = stars[i];
@@ -82,6 +85,7 @@ export class PixiBackground extends Application {
 				star.sprite.rotation = Math.atan2(dyCenter, dxCenter) + Math.PI / 2;
 			}
 		});
+
 	}
 
 	destroy(removeView?: boolean | undefined, stageOptions?: boolean | IDestroyOptions | undefined): void {
@@ -89,9 +93,5 @@ export class PixiBackground extends Application {
 		super.destroy(removeView, stageOptions);
 	}
 
-	resize() {
-		console.log('resize')
-		// this.renderer?.resize(this.container.clientWidth, this.container.clientHeight);
-	}
-
+ 
 }

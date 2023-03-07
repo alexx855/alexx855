@@ -5,6 +5,9 @@ export interface ISkillsProps {
 }
 
 export default function Skills({ skills }: ISkillsProps) {
+  if (skills.length === 0)
+    return null;
+
   return (
     <section id="skills" className={styles.skills}>
       <h2>Skills</h2>

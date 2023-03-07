@@ -2,20 +2,20 @@
 
 .skills ul {
   margin-top: 0;
-  list-style: none;
-                    padding-left: 20px;
+  /* list-style: none; */
+  padding-left: 1rem
 }
 
 .skills li {
   margin-bottom: 0.5rem;
   position: relative;
-  display: inline-block;
+  display: list-item;
 }
 
-.skills li::before {
+/* .skills li::before {
   content: '';
   display: block;
-  background: #162233;
+  background: #161b22;
   width: 100%;
   position: absolute;
   height: 100%;
@@ -23,7 +23,9 @@
   left: 0%;
   border-radius: 20px;
   z-index: -1;
-}
+} */
+
+/* 
 .skills li::after {
   content: '';
   display: block;
@@ -35,4 +37,15 @@
   left: -20px;
   border-radius: 20px;
   z-index: 1;
+}
+ */
+
+@media (max-height: 300px) {
+   .content div{
+    display: none;
+   }
+
+   .avatar {
+    margin: 0 auto;
+   }
 }

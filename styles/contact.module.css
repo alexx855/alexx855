@@ -28,7 +28,7 @@
   gap: 1rem;
 }
 
-@media (max-width: 610px) {
+@media (max-width: 610px) and (orientation: portrait) {
   .contactList {
     display: flex;
     flex-direction: column;

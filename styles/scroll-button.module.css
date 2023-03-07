@@ -5,9 +5,14 @@
   cursor: pointer;
   font-size: 0;
   padding: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  /* color: #0c5e84; */
+    color: #fff;
 }
 
 .button:hover {
-  transform: scale(1.1);
-  transition: all 0.2s ease-in-out;
+  color: #fff;
 }

@@ -1,35 +1,13 @@
 import styles from "../styles/poaps.module.css";
 import Image from "next/image";
 import Link from "next/link";
-
-interface POAPsApiResponse {
-  event: {
-    id: number;
-    fancy_id: string;
-    name: string;
-    event_url: string;
-    image_url: string;
-    country: string;
-    city: string;
-    description: string;
-    year: number;
-    start_date: string;
-    end_date: string;
-    expiry_date: string;
-    supply: number;
-  };
-  tokenId: string;
-  owner: string;
-  chain: string;
-  created: string;
-}
+import { POAPsApiResponse } from "@/pages";
 
 export interface IPOAPsProps {
   poaps: POAPsApiResponse[];
 }
 
 export default function POAPs({ poaps }: IPOAPsProps) {
-  console.log(poaps);
   if (!poaps || poaps.length === 0) {
     return null;
   }

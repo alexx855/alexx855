@@ -1,106 +1,73 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useRef, useEffect } from "react";
 import { PixiBackground } from "./pixi-background";
 
-export function Background() {
+export function Background({ size, warpSpeed }: { size: { width: number, height: number }, warpSpeed: number }) {
   const bgContainer = useRef<HTMLDivElement | null>(null);
   const pixiBgRef = useRef<PixiBackground | null>(null);
 
   useEffect(() => {
-    console.log('initBackground');
-    const canvasbgContainer = bgContainer.current;
+    const canvasBgContainer = bgContainer.current;
 
-    if (!canvasbgContainer) {
-      return;
+    if (canvasBgContainer) {
+      const pixiApp = new PixiBackground({
+        backgroundColor: '#161b22',
+        antialias: true,
+        // resolution: 1,
+        resolution: window.devicePixelRatio || 1,
+        autoDensity: true,
+        width: size.width,
+        height: size.height,
+        // width: canvasBgContainer.parentElement?.offsetWidth,
+        // height: canvasBgContainer.parentElement?.offsetHeight,
+        container: canvasBgContainer,
+      });
+
+      canvasBgContainer.appendChild(pixiApp.view as any);
+      pixiBgRef.current = pixiApp;
+      pixiBgRef.current.startBackground();
     }
-
-    const pixiApp = new PixiBackground({
-      backgroundColor: '#162233',
-      antialias: true,
-      // resolution: 1,
-      resolution: window.devicePixelRatio || 1,
-      autoDensity: true,
-      width: canvasbgContainer.parentElement?.offsetWidth,
-      height: canvasbgContainer.parentElement?.offsetHeight,
-      container: canvasbgContainer,
-    });
-
-    canvasbgContainer.appendChild(pixiApp.view as any);
-    pixiBgRef.current = pixiApp;
-    pixiBgRef.current.startBackground();
 
     return () => {
       if (pixiBgRef.current) {
         pixiBgRef.current.destroy();
       }
-      if (canvasbgContainer && canvasbgContainer.childElementCount > 0) {
-        canvasbgContainer.lastChild?.remove();
+      if (canvasBgContainer && canvasBgContainer.childElementCount > 0) {
+        canvasBgContainer.lastChild?.remove();
       }
-
     }
-  }, []);
+  }, [size]);
 
-  const onResize = (event: Event) => {
-    // console.log('resize', event);
-    const target: any = event.target
-    const innerWidth = target.innerWidth;
-    const innerHeight = target.innerHeight;
-    // console.log('innerWidth', innerWidth, 'innerHeight', innerHeight);
+  // update warp speed
+  useEffect(() => {
     if (pixiBgRef.current) {
-      pixiBgRef.current.resize();
+      pixiBgRef.current.warpSpeed = warpSpeed;
     }
-  };
+  }, [warpSpeed]);
 
-  useEffect(() => {
-    console.log('add resize  listener');
-    //add eventlistener to window scroll
-    window.addEventListener("resize", onResize);
-    // remove event on unmount to prevent a memory leak with the cleanup
-    return () => {
-      window.removeEventListener("resize", onResize);
-    }
-  }, []);
-
-  const onScroll = (event: Event) => {
-    console.log('scroll', event);
-  }
-
-  useEffect(() => {
-    console.log('add scroll listener');
-    //add eventlistener to window scroll
-    window.addEventListener("scroll", onScroll, { passive: true });
-    // remove event on unmount to prevent a memory leak with the cleanup
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    }
-  }, []);
-
-  return (<>
+  return (
     <div
+      id="bg"
       style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
+        position: 'fixed',
         zIndex: 1,
-        width: '100%',
-        height: '100%',
-      }}
-      ref={bgContainer}
-      id="bgContainer"
-    >
-    </div>
-
-    {/* workarround for touch scroll */}
-    <div
-      style={{
-        position: 'absolute',
-        top: 0,
         left: 0,
-        zIndex: 2,
-        width: '100%',
-        height: '100%'
+        width: size.width,
+        height: size.height,
       }}
-      id="touchScroll"
     >
+      <div
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          zIndex: 1,
+          width: '100%',
+          height: '100%',
+        }}
+        ref={bgContainer}
+        id="bgContainer"
+      >
+      </div>
     </div>
-  </>)
+  )
 }

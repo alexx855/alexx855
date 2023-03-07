@@ -13,6 +13,7 @@
   gap: 1rem;
   margin-top: 1rem;
   box-sizing: content-box;
+  overflow: visible;
 }
 
 .content a {
@@ -30,10 +31,10 @@
   left: 0;
   width: 140%;
   margin-left: -20%;
-  padding: 4px 0;
+  margin-top: 1rem;
   text-align: center;
   border-radius: 12px;
-  background: #162233;
+  background: #161b22;
   border-radius: 20px;
 }
 
@@ -54,8 +55,8 @@
 
 @media (max-width: 770px) {
   .content a {
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     position: relative;
     color: #fff;
   }
@@ -71,4 +72,10 @@
     padding: 0 1rem;
   }
 
+}
+
+@media (max-height: 620px) {
+  .content a:hover span {
+    display: none;
+  }
 }

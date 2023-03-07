@@ -1,21 +1,20 @@
-import type { GetStaticPropsContext, NextPage } from "next";
-import Head from "next/head";
-import styles from "../styles/home.module.css";
+import Head from 'next/head'
+import styles from '@/styles/home.module.css'
+import type { NextPage } from "next";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { useRef } from "react";
-import readmeRawContent from '../README.md'
-// import { Background } from "../components/background-no-ssr";
-import POAPs, { IPOAPsProps } from "../components/poaps";
-import ScrollButton from "../components/scroll-button";
-import About from "../components/about";
-import Contact from "../components/contact";
-import Skills from "../components/skills";
+import { useEffect, useRef, useState } from "react";
+import { Background } from "@/components/background";
+import POAPs, { IPOAPsProps } from "@/components/poaps";
+import ScrollButton from "@/components/scroll-button";
+import About from "@/components/about";
+import Contact from "@/components/contact";
+import Skills from "@/components/skills";
 import { createWriteStream, promises as fs } from 'fs';
 import https from 'https';
 import path from 'path';
 
 export interface HomeProps {
-  poaps: IPOAPsProps['poaps'];
+  poaps: POAPsApiResponse[];
   skills: string[];
   about: string;
 }
@@ -33,11 +32,40 @@ const schema = {
   ]
 }
 
-const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
-  const speedOffset = 0
-  const totalSections = 2.6
-  // const pages = ((totalSections - 1) * 0.6) + 0.8 + (0.2 * (totalSections)) - speedOffset
+const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
+  const totalPages = 3;
   const ref = useRef<IParallax>(null);
+  const [size, setSize] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
+  const [warpSpeed, setWarpSpeed] = useState<number>(0);
+
+  useEffect(() => {
+    console.log('add resize  listener');
+
+    const onResize = (event: any) => {
+      if (!event.target) {
+        return;
+      }
+      const innerWidth = event.target.innerWidth;
+      const innerHeight = event.target.innerHeight;
+      setSize({ width: innerWidth, height: innerHeight });
+    };
+    //add eventlistener to window scroll
+    window.addEventListener("resize", onResize);
+    // remove event on unmount to prevent a memory leak with the cleanup
+    setSize({ width: window.innerWidth, height: window.innerHeight });
+    return () => {
+      window.removeEventListener("resize", onResize);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (ref.current) {
+      // setWarpSpeed(1)
+    }
+
+    return () => {
+    }
+  }, []);
 
   return (
     <>
@@ -67,19 +95,37 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </Head>
-
       <main className={styles.main}>
-        <Parallax pages={totalSections} className={styles.parallax} ref={ref}>
-          {/* <ParallaxLayer
-            key={0}
-            offset={0}
-            factor={totalSections}
-          >
-            <Background />
-          </ParallaxLayer> */}
+        <Parallax
+          pages={totalPages}
+          className={styles.parallax}
+          ref={ref}
+          onDragEnd={() => {
+            // setWarpSpeed(0);
+            console.log('drag end');
+          }}
+          onDragStart={() => {
+            // setWarpSpeed(1);
+            console.log('drag start');
+          }}
+          style={{
+            zIndex: 99,
+          }}>
 
           <ParallaxLayer
-            key={1}
+            offset={0.8}
+            factor={0.2}
+            speed={0.2}
+          >
+            <div className={styles.container}>
+              <ScrollButton onClick={() => {
+                ref.current?.scrollTo(1)
+                setWarpSpeed(1);
+              }} />
+            </div>
+          </ParallaxLayer>
+
+          <ParallaxLayer
             offset={0}
             factor={0.8}
             speed={0.4}
@@ -87,26 +133,25 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
               // backgroundColor: `hsl(${0 * 50}, 100%, 50%)`,
             }}
           >
-            <div className={styles.container}>
-              <About about={about} />
-            </div>
-          </ParallaxLayer>
-
-          <ParallaxLayer 
-            offset={0.8}
-            factor={0.2}
-            speed={0}
-          >
-            <div className={styles.container}>
-              <ScrollButton onClick={() => ref.current?.scrollTo(1)} />
+            <div
+              className={styles.container}
+            // className={styles.container__cover}
+            >
+              <About>
+                <h1>Hello there</h1>
+                {about.split('.').map((sentence, index) => {
+                  if (sentence.replace(/\s/g, '').length === 0)
+                    return null
+                  return <p key={index}>{sentence}.</p>
+                })}
+              </About>
             </div>
           </ParallaxLayer>
 
           <ParallaxLayer
-            key={2}
             offset={1}
-            factor={0.8}
-            speed={0.4}
+            factor={1}
+            speed={0.2}
             style={{
               // backgroundColor: `hsl(${1 * 50}, 100%, 50%)`,
             }}
@@ -117,10 +162,9 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
           </ParallaxLayer>
 
           <ParallaxLayer
-            key={3}
-            offset={1.8}
-            factor={0.4}
-            speed={0.2}
+            offset={2}
+            factor={0.5}
+            speed={0}
             style={{
               // backgroundColor: `hsl(${2 * 50}, 100%, 50%)`,
             }}
@@ -131,24 +175,49 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }: HomeProps) => {
           </ParallaxLayer>
 
           <ParallaxLayer
-            key={4}
-            offset={2.2}
-            factor={0.4}
-            speed={0}
+            offset={2.5}
+            factor={0.5}
+            speed={0.4}
             style={{
               // backgroundColor: `hsl(${3 * 50}, 100%, 50%)`,
             }}
-          >     
+          >
             <div className={styles.container}>
               <Contact />
             </div>
           </ParallaxLayer>
 
         </Parallax>
+        <Background size={size} warpSpeed={warpSpeed} />
       </main>
     </>
-  );
-};
+  )
+}
+
+
+interface POAPEvent {
+  id: number;
+  fancy_id: string;
+  name: string;
+  event_url: string;
+  image_url: string;
+  country: string;
+  city: string;
+  description: string;
+  year: number;
+  start_date: string;
+  end_date: string;
+  expiry_date: string;
+  supply: number;
+}
+
+export interface POAPsApiResponse {
+  event: POAPEvent;
+  tokenId: string;
+  owner: string;
+  chain: string;
+  created: string;
+}
 
 function downloadPoapImageFromURL(url: string, filename: string) {
   // download the images to the public/poaps folder
@@ -178,51 +247,55 @@ function downloadPoapImageFromURL(url: string, filename: string) {
   })
 }
 
-// load the readme file and parse it 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export const getStaticProps = async () => {
 
-  try {
-    // get the POAPS from the API
-    const POAP_API = process.env.POAP_API
-    const headers = new Headers()
-    headers.append('accept', 'application/json')
-    headers.append('x-api-key', POAP_API!)
-    const poaps: IPOAPsProps['poaps'] = await (await fetch('https://api.poap.tech/actions/scan/alexx855.eth', { headers })).json()
-    if (poaps && poaps.length > 0) {
-      // download the images to the public folder
-      for (const poap of poaps) {
-        const filename = `poap-${poap.event.id}.png`
-        // check if the file exists
-        if (await fs.access(path.join(process.cwd(), 'public/poaps', filename)).then(() => true).catch(() => false)) {
-          continue
-        }
-        await downloadPoapImageFromURL(poap.event.image_url, filename)
-      }
-    }
+  let readmeTxt: string = await fs.readFile(path.join(process.cwd(), 'README.md'), 'utf8')
+  // split the readme into sections, each section starts with one or more #
+  const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
+  // remove the first line and the picture,
+  let about = secs[0].split('\n').slice(2).join('\n')
+  // substring to  </picture>
+  about = about.substring(about.indexOf('</picture>') + 10)
+  // trim line jumps 
+  about = about.trim()
+  // remove the first line, and split the other lines into an array
+  let skills = secs[1].split('\n').slice(1).map(s => s.substring(1).trim())
+  // trim line jumps, remove empty lines
+  skills = skills.map(s => s.trim()).filter(s => s.length > 0)
 
-    let readmeTxt: string = readmeRawContent
-    // split the readme into sections, each section starts with one or more #
-    const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
 
-    // remove the first line and the picture,
-    let about = secs[0].split('\n').slice(2).join('\n')
-    // substring to  </picture>
-    about = about.substring(about.indexOf('</picture>') + 10)
-    // remove the first line, and split the other lines into an array
-    let skills = secs[1].split('\n').slice(1).map(s => s.substring(1).trim())
-
-    return {
-      props: {
-        about,
-        skills,
-        poaps
-      }
-    }
-  } catch (error) {
-    console.log(error)
-    throw error
+  // get the POAPS from the API
+  const POAP_API = process.env.POAP_API
+  if (!POAP_API) {
+    throw new Error('POAP_API is not defined')
   }
 
+  const headers = new Headers()
+  headers.append('accept', 'application/json')
+  headers.append('x-api-key', POAP_API)
+  const poaps: IPOAPsProps['poaps'] = await (await fetch('https://api.poap.tech/actions/scan/alexx855.eth', { headers })).json()
+
+  if (poaps && poaps.length > 0) {
+    // download the images to the public folder
+    for (const poap of poaps) {
+      const filename = `poap-${poap.event.id}.png`
+      // check if the file exists
+      if (await fs.access(path.join(process.cwd(), 'public/poaps', filename)).then(() => true).catch(() => false)) {
+        continue
+      }
+      await downloadPoapImageFromURL(poap.event.image_url, filename)
+    }
+  }
+
+  const props: HomeProps = {
+    about,
+    skills,
+    poaps
+  }
+
+  return {
+    props
+  }
 }
 
 export default Home;
