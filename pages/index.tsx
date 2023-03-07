@@ -2,7 +2,7 @@ import Head from 'next/head'
 import styles from '@/styles/home.module.css'
 import type { NextPage } from "next";
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Background } from "@/components/background";
 import POAPs, { IPOAPsProps } from "@/components/poaps";
 import ScrollButton from "@/components/scroll-button";
@@ -39,7 +39,6 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
   const [warpSpeed, setWarpSpeed] = useState<number>(0);
 
   useEffect(() => {
-    console.log('add resize  listener');
 
     const onResize = (event: any) => {
       if (!event.target) {
@@ -58,12 +57,26 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
     }
   }, []);
 
-  useEffect(() => {
-    if (ref.current) {
-      // setWarpSpeed(1)
+  const onScroll = useCallback((event: any) => {
+    if (!event.target) {
+      return;
     }
+    setWarpSpeed(event.target.scrollTop / event.target.scrollHeight);
+  }, []);
 
+  useEffect(() => {
+    const current = ref.current
+    if (!current || !current.container.current) {
+      return;
+    }
+    //add eventlistener to window scroll
+    current.container.current.addEventListener("scroll", onScroll);
+    // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
+      if (!current || !current.container.current) {
+        return;
+      }
+      current.container.current.removeEventListener("scroll", onScroll);
     }
   }, []);
 
@@ -75,17 +88,17 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           name="description"
           content={about}
         />
-        <meta name="og:title" content="Alex Pedersen" />
+        <meta name="og:title" content="Alex Pedersen - alexx855.eth" />
         <meta name="og:description" content={about} />
         <meta name="og:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
         <meta name="og:url" content="https://alexx855.github.io/alexx855.eth/" />
         <meta name="og:type" content="website" />
-        <meta name="og:site_name" content="Alex Pedersen" />
+        <meta name="og:site_name" content="Alex Pedersen - alexx855.eth" />
         <meta name="og:locale" content="en_US" />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content={about} />
         <meta name="twitter:site" content="@alexx855" />
         <meta name="twitter:creator" content="@alexx855" />
-        <meta name="twitter:title" content="Alex Pedersen" />
+        <meta name="twitter:title" content="Alex Pedersen - alexx855.eth" />
         <meta name="twitter:description" content={about} />
         <meta name="twitter:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
         <meta name="twitter:image:alt" content="Alex Pedersen" />
@@ -102,11 +115,9 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           ref={ref}
           onDragEnd={() => {
             // setWarpSpeed(0);
-            console.log('drag end');
           }}
           onDragStart={() => {
             // setWarpSpeed(1);
-            console.log('drag start');
           }}
           style={{
             zIndex: 99,
@@ -224,24 +235,20 @@ function downloadPoapImageFromURL(url: string, filename: string) {
   return new Promise((resolve, reject) => {
     https.get(url, (res) => {
       if (res.statusCode !== 200) {
-        console.error(`Failed to download image: ${res.statusCode}`);
         return;
       }
 
       const fileStream = createWriteStream(path.join(process.cwd(), 'public/poaps', filename));
       res.pipe(fileStream);
       fileStream.on('finish', () => {
-        console.log(`Image downloaded: ${filename}`);
         resolve(true);
       });
 
       fileStream.on('error', (err) => {
-        console.error(`Failed to download image: ${err}`);
         reject(false);
       });
 
     }).on('error', (err) => {
-      console.error(`Failed to download image: ${err}`);
       reject(false);
     });
   })
