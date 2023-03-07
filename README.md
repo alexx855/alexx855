@@ -1,23 +1,27 @@
 # Hello there
+
 <picture>
   <source media="(prefers-color-scheme: dark)" alt="Welcome to the dark side" srcset="https://raw.githubusercontent.com/alexx855/alexx855/master/public/stormtroopocat.png">
-  <img align="left" alt="The force is with you" width="48" height="48" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
+  <img align="left" alt="May the Force be with you" width="50" height="50" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
 </picture>
-<p>I'm a Full Stack Developer with a focus on Web3 and DevOps.<br>I have a proven track record of delivering exceptional web and mobile projects.</p>
+My name is Alex and i'm a full stack web and blockchain developer from Argentina. Currently, I work as a freelance developer and I'm always on the lookout for new opportunities to showcase my skills.
 
 ## Skills
-- Experienced in JavaScript, TypeScript, Node.js, Angular, Next.js, and React
-- Experienced in PHP, MySQL, Laravel, WordPress, and WooCommerce
-- Experienced in using Kubernetes in production
-- Proficient in mobile app development with Ionic and React Native
-- Skilled in GCP, AWS, Docker, and basic Python and Bash coding
-- Skilled in Web3 with Ethers.js, Solidity, Hardhat, and TheGraph
 
-### Contact
-[![Linkedin Badge](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/alexx855)
-[![Discord Badge](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/users/alexx855.eth#9229)
-[![Twitter Badge](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/alexx855)
-[![Stackoverflow Badge](https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white)](https://stackoverflow.com/users/4717076/alex-pedersen)
-[![Website Badge](https://img.shields.io/badge/Website-100000?style=for-the-badge&logo=google-chrome&logoColor=white)](https://alexpedersen.dev/)
-<!--[![Github Badge](https://img.shields.io/badge/Github-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/alexx855)-->
-<p>Adios 👋</p>
+- Over 4 years of experience with TypeScript as my most proficient language, along with extensive experience working with Angular, Next.js, React and Express.
+
+- Over 1 year of experience as a blockchain developer, specifically in writing and deploying smart contracts in Solidity to EVM compatible chains. I have used Solidity, Foundry, Hardhat, Ethers.js, web3auth, Wagmi, and TheGraph.
+
+- Over 2 years of experience using Kubernetes and managing CI/CD pipelines on Linux servers, enabling seamless and efficient deployment and scaling of applications.
+
+- Over 2 years of experience in mobile app development, leveraging Ionic Capacitor, Cordova, and React Native to build and publish 4 apps on the App Store and Google Play.
+
+- Over 4 years of experience managing cloud providers like AWS, GCP, Azure, Digital Ocean, Docker, Linux, basic Bash, and Python scripting.
+
+- Over 4 years of experience working with NoSQL databases such as MongoDB, Firestore, and Redis.
+
+- Over 8 years of experience working with PHP, WordPress with WooCommerce, and MySQL databases.
+
+- Over 2 years of experience working as a computer repair shop technician and IT service provider, demonstrating my ability to provide hardware and software support for desktops, laptops, and more. (Yes, I can fix your printer and computer too)
+
+### Adios 👋
