@@ -1,4 +1,7 @@
-/* .skills {} */
+.skills {
+  align-self: flex-start;
+  padding-top: 20px;
+}
 
 .skills ul {
   margin-top: 0;

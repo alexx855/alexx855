@@ -134,7 +134,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           <ParallaxLayer
             offset={0.8}
             factor={0.2}
-            speed={0.2}
+            speed={0}
           >
             <div className={styles.container}>
               <ScrollButton onClick={() => {
@@ -169,8 +169,8 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
 
           <ParallaxLayer
             offset={1}
-            factor={1}
-            speed={0.2}
+            factor={1.6}
+            speed={0.4}
             style={{
               // backgroundColor: `hsl(${1 * 50}, 100%, 50%)`,
             }}

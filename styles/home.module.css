@@ -2,7 +2,7 @@
   position: relative;
   max-width: 940px;
   margin: 0 auto;
-  padding: 0  20px;
+  padding: 20px;
   height: 100%;
   display: flex;
   justify-content: left;
@@ -31,10 +31,6 @@
   background-position: top center; */
 }
 
-/* .main section>div :last-child {
-  margin-bottom: 0;
-} */
-
 @media (max-width: 770px) {
   .container {
     max-width: 100%;
@@ -45,7 +41,6 @@
     padding-top: 0;
   }
 }
-
 
 /* landscape fix low height fix */
 @media (max-height: 710px) and (orientation: landscape) {
