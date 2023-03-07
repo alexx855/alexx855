@@ -88,6 +88,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           name="description"
           content={about}
         />
+        <link rel="icon" href="/favicon.svg" />
         <meta name="og:title" content="Alex Pedersen - alexx855.eth" />
         <meta name="og:description" content={about} />
         <meta name="og:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
