@@ -19,6 +19,13 @@ export interface HomeProps {
   about: string;
 }
 
+import { Ubuntu } from 'next/font/google'
+
+const roboto = Ubuntu({
+  weight: '700',
+  subsets: ['latin'],
+})
+
 const schema = {
   "@context": "https://schema.org/",
   "@type": "Person",
@@ -78,7 +85,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
       }
       current.container.current.removeEventListener("scroll", onScroll);
     }
-  }, []);
+  }, [onScroll]);
 
   return (
     <>
@@ -109,7 +116,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </Head>
-      <main className={styles.main}>
+      <main className={roboto.className}>
         <Parallax
           pages={totalPages}
           className={styles.parallax}
