@@ -18,4 +18,11 @@
     "[json]": {
       "editor.defaultFormatter": "vscode.json-language-features"
     },
+    "cSpell.words": [
+      "IPOAPs",
+      "poaps"
+    ],
+    "[xml]": {
+      "editor.defaultFormatter": "redhat.vscode-xml"
+    },
   }
