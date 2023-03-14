@@ -8,11 +8,17 @@
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  
   /* color: #0c5e84; */
-    color: #fff;
 }
 
-.button:hover {
+/* .button:hover{
   color: #fff;
+} */
+
+.button:hover svg{
+  transition: transform 0.3s ease-in-out;
+}
+
+.button:hover svg {
+  transform: scale(1.1) 
 }

@@ -6,11 +6,11 @@
 
   0%,
   to {
-    transform: rotate(-3deg)
+    transform: rotate(-6deg)
   }
 
   50% {
-    transform: rotate(3deg)
+    transform: rotate(6deg)
   }
 }
 
@@ -18,6 +18,7 @@
   margin-top: 1rem;
   margin-bottom: 0;
 }
+
 .adios span {
   animation: wiggle 1s ease-in-out infinite;
   display: inline-block;
@@ -32,11 +33,19 @@
   gap: 1rem;
 }
 
+.contactList a {
+  transition: transform 0.3s ease-in-out;
+}
+
+.contactList a:hover {
+  transform: scale(1.1);
+}
+
 @media (max-width: 610px) and (orientation: portrait) {
   .contactList {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-      gap: 0;
+    gap: 0;
   }
 }

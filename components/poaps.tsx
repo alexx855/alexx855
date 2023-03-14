@@ -14,10 +14,9 @@ export default function POAPs({ poaps }: IPOAPsProps) {
 
   return (
     <section id="poaps" className={styles.poaps}>
-      <h3>Web3 POAPs</h3>
+      <h3>Web3</h3>
       <div>
-        {/* <Link href="https://app.poap.xyz/scan/alexx855.eth" target="_blank" rel="noopener noreferrer">view all</Link> */}
-        <p>POAP, short for Proof of Attendance Protocol, allows you to mint memories as digital mementos.</p>
+        <p>I{"'"}ve received the following POAPs from events and hackathons i{"'"}ve attended in the last 2 years.</p>
       </div>
       <div className={styles.content}>
         <div>

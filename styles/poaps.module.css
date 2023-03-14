@@ -18,10 +18,13 @@
 
 .content a {
   position: relative;
-  width: 100px;
-  height: 100px;
-  display: block;
+  display: inline-block;
   color: #fff;
+  background: #2b323b;
+  border-radius: 50%;
+  font-size: 0;
+  width: 100px;
+  height: auto;
 }
 
 .content a span {
@@ -32,15 +35,13 @@
   width: 140%;
   margin-left: -20%;
   margin-top: 1rem;
+  font-size: 0.5rem;
   text-align: center;
-  border-radius: 12px;
-  background: #161b22;
-  border-radius: 20px;
 }
 
-.content a:hover span {
+/* .content a:hover span {
   display: block;
-}
+} */
 
 .content a img {
   width: 100%;
@@ -52,13 +53,10 @@
   transition: transform 0.3s ease-in-out;
 }
 
-
-@media (max-width: 770px) {
+@media (max-width: 900px) {
   .content a {
     width: 60px;
     height: 60px;
-    position: relative;
-    color: #fff;
   }
 
   .content {
