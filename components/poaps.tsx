@@ -1,10 +1,32 @@
 import styles from "../styles/poaps.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { POAPsApiResponse } from "@/pages";
-
 export interface IPOAPsProps {
   poaps: POAPsApiResponse[];
+}
+
+export interface POAPEvent {
+  id: number;
+  fancy_id: string;
+  name: string;
+  event_url: string;
+  image_url: string;
+  country: string;
+  city: string;
+  description: string;
+  year: number;
+  start_date: string;
+  end_date: string;
+  expiry_date: string;
+  supply: number;
+}
+
+export interface POAPsApiResponse {
+  event: POAPEvent;
+  tokenId: string;
+  owner: string;
+  chain: string;
+  created: string;
 }
 
 export default function POAPs({ poaps }: IPOAPsProps) {

@@ -5,14 +5,14 @@ import { Ubuntu } from 'next/font/google'
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Background } from "@/components/background";
-import POAPs, { IPOAPsProps } from "@/components/poaps";
+import POAPs, { IPOAPsProps, POAPsApiResponse } from "@/components/poaps";
 import ScrollButton from "@/components/scroll-button";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Skills from "@/components/skills";
-import { createWriteStream, promises as fs } from 'fs';
-import https from 'https';
+import { promises as fs } from 'fs';
 import path from 'path';
+import downloadPoapImageFromURL from '@/lib/downloadPoapImageFromURL';
 
 export interface HomeProps {
   poaps: POAPsApiResponse[];
@@ -52,31 +52,7 @@ interface LayoutConfig {
 
 type Adaptive = 'mobile' | 'desktop'
 
-interface POAPEvent {
-  id: number;
-  fancy_id: string;
-  name: string;
-  event_url: string;
-  image_url: string;
-  country: string;
-  city: string;
-  description: string;
-  year: number;
-  start_date: string;
-  end_date: string;
-  expiry_date: string;
-  supply: number;
-}
-
-export interface POAPsApiResponse {
-  event: POAPEvent;
-  tokenId: string;
-  owner: string;
-  chain: string;
-  created: string;
-}
-
-const roboto = Ubuntu({
+const ubuntu = Ubuntu({
   weight: '700',
   subsets: ['latin'],
 })
@@ -232,7 +208,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
       </Head>
-      <main className={roboto.className}>
+      <main className={ubuntu.className}>
         <Parallax
           ref={ref}
           pages={parallaxConfig[layout].pages}
@@ -315,46 +291,22 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
   )
 }
 
-function downloadPoapImageFromURL(url: string, filename: string) {
-  // download the images to the public/poaps folder
-  return new Promise((resolve, reject) => {
-    https.get(url, (res) => {
-      if (res.statusCode !== 200) {
-        return;
-      }
-
-      const fileStream = createWriteStream(path.join(process.cwd(), 'public/poaps', filename));
-      res.pipe(fileStream);
-      fileStream.on('finish', () => {
-        resolve(true);
-      });
-
-      fileStream.on('error', (err) => {
-        reject(false);
-      });
-
-    }).on('error', (err) => {
-      reject(false);
-    });
-  })
-}
 
 export const getStaticProps = async () => {
-
+  // read the readme file
   let readmeTxt: string = await fs.readFile(path.join(process.cwd(), 'README.md'), 'utf8')
-  // split the readme into sections, each section starts with one or more #
+  // split the readme into sections
   const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
-  // remove the first line and the picture,
+  // get the about section
   let about = secs[0].split('\n').slice(2).join('\n')
-  // substring to  </picture>
+  // substring to </picture>
   about = about.substring(about.indexOf('</picture>') + 10)
-  // trim line jumps 
+  // trim the about text
   about = about.trim()
-  // remove the first line, and split the other lines into an array
+  // get the skills section, split by line, remove the first line, trim the lines and map to skills
   let skills = secs[1].split('\n').slice(1).map(s => s.substring(1).trim())
-  // trim line jumps, remove empty lines
+  // filter out empty skills
   skills = skills.map(s => s.trim()).filter(s => s.length > 0)
-
 
   // get the POAPS from the API
   const POAP_API = process.env.POAP_API
@@ -371,7 +323,7 @@ export const getStaticProps = async () => {
     // download the images to the public folder
     for (const poap of poaps) {
       const filename = `poap-${poap.event.id}.png`
-      // check if the file exists
+      // check if the poap image already exists
       if (await fs.access(path.join(process.cwd(), 'public/poaps', filename)).then(() => true).catch(() => false)) {
         continue
       }
