@@ -36,9 +36,9 @@ export default function POAPs({ poaps }: IPOAPsProps) {
 
   return (
     <section id="poaps" className={styles.poaps}>
-      <h3>Web3</h3>
+      <h3>Road to Web3</h3>
       <div>
-        <p>I{"'"}ve received the following POAPs from events and hackathons i{"'"}ve attended in the last 2 years.</p>
+        <p>I{"'"}ve received the following POAPs as proof for the events and hackathons i{"'"}ve attended over the last 2 years.</p>
       </div>
       <div className={styles.content}>
         <div>
