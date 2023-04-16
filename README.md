@@ -4,16 +4,17 @@
   <source media="(prefers-color-scheme: dark)" alt="Welcome to the dark side" srcset="https://raw.githubusercontent.com/alexx855/alexx855/master/public/stormtroopocat.png">
   <img align="left" alt="May the Force be with you" width="50" height="50" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
 </picture>
-I'm Alex, a full stack web and blockchain developer from Argentina. I work as a freelance developer and I'm currently looking for new opportunities.
+I'm Alex, a freelance full stack  & mobile developer from Argentina.  I am a dedicated developer with over 6 years of experience developing and maintaining web applications.
 
 ## Skills and Experience
 
-- Over 3 years of experience with TypeScript, working with Angular, Next.js, React and Node.
-- Over 1 year of experience as a blockchain developer, specifically in writing and deploying smart contracts in Solidity to EVM compatible chains. I have created and deployed proyects using Solidity, Foundry, Hardhat, Ethers.js, web3auth, Wagmi and TheGraph.
-- Over 8 years of experience working with PHP and MySQL. Mostly WordPress and WooCommerce, but also on Laravel and Prestashop.
-- Over 4 years of experience managing cloud providers: AWS, GCP and Digital Ocean. Proficient with with Docker and Linux. Basic Bash and Python scripting.
-- Over 2 year of experience working with Kubernetes.
-- Over 2 years of experience in mobile app development, leveraging Ionic Capacitor and React Native to build and publish 4 apps on the App Store and Google Play.
-- Over 2 years of experience on a computer repair shop, proving IT service, hardware and software support working with clients directly. Yes, I can fix your computer and printer too 🤓.
+- Over 3 years of experience with JavaScript and TypeScript, Angular, Ionic, Firebase and Node.
+- Over 2 years of experience with React and Next.js.
+- Experience with Linux, Docker and Kubernetes, basic Shell and Python scripting, and CI/CD pipelines.
+- Blockchain developer enthusiast, smart contracts development with Solidity, Foundry, Hardhat, Ethers.js, web3auth and The Graph.
+- Over 6 years of experience working with PHP and MySQL, WordPress and WooCommerce.
+- Over 2 years of experience working with different cloud providers: AWS, GCP and Digital Ocean.
+- Experience in mobile app development, leveraging Ionic Capacitor and React Native to build and publish apps on the App Store and Google Play.
+- 2 years of experience in a computer repair shop, providing IT service, hardware and software support. Yes, I can fix your printer too 🤓.
 
 ### Adios 👋
