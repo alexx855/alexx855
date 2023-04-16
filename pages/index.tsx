@@ -151,12 +151,13 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
 
 
   useEffect(() => {
-    const current = ref.current
-    if (!current || !current.container.current) {
+    const curentRef = ref.current
+    if (!curentRef || !curentRef.container.current) {
       return;
     }
 
     const onScroll = (event: any) => {
+      console.log(event.target.scrollTop)
       if (!event.target) {
         return;
       }
@@ -164,15 +165,16 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
     }
 
     //add eventlistener to window scroll
-    current.container.current.addEventListener("scroll", onScroll);
+    curentRef.container.current.addEventListener("scroll", onScroll);
     // remove event on unmount to prevent a memory leak with the cleanup
     return () => {
-      if (!current || !current.container.current) {
+      if (!curentRef || !curentRef.container.current) {
         return;
       }
-      current.container.current.removeEventListener("scroll", onScroll);
+      curentRef.container.current.removeEventListener("scroll", onScroll);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ref.current]);
 
   return (
     <>
