@@ -26,7 +26,7 @@ const schema = {
   "name": "Alex Pedersen",
   "url": "https://alexpedersen.dev/",
   "image": "https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png",
-  "jobTitle": "Full stack web developer",
+  "jobTitle": "Freelance Full Stack & Mobile Developer. Argentina",
   "sameAs": [
     "https://twitter.com/alexx855",
     "https://github.com/alexx855",
@@ -232,7 +232,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
             // className={styles.container__cover}
             >
               <About>
-                <h1>Hello there</h1>
+                <h1>Alex Pedersen</h1>
                 {about.split('.').map((sentence, index) => {
                   if (sentence.replace(/\s/g, '').length === 0)
                     return null
@@ -298,15 +298,15 @@ export const getStaticProps = async () => {
   // read the readme file
   let readmeTxt: string = await fs.readFile(path.join(process.cwd(), 'README.md'), 'utf8')
   // split the readme into sections
-  const secs = readmeTxt.split(/(?<=\n)(?=\#{1,6})/g)
-  // get the about section
-  let about = secs[0].split('\n').slice(2).join('\n')
-  // substring to </picture>
-  about = about.substring(about.indexOf('</picture>') + 10)
+  const secs = readmeTxt.split( /#/g )
+  // get the about section, after the # header and before the next header
+  let about = secs[1].split('\n').slice(1).join('\n')
   // trim the about text
-  about = about.trim()
-  // get the skills section, split by line, remove the first line, trim the lines and map to skills
-  let skills = secs[1].split('\n').slice(1).map(s => s.substring(1).trim())
+  // about = about.trim()
+
+  // get the skills from the ## header
+  let skills = secs[3].split('\n').slice(1).map(s => s.substring(1).trim())
+  console.log(skills)
   // filter out empty skills
   skills = skills.map(s => s.trim()).filter(s => s.length > 0)
 

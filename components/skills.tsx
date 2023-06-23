@@ -10,7 +10,7 @@ export default function Skills({ skills }: ISkillsProps) {
 
   return (
     <section id="skills" className={styles.skills}>
-      <h2>Skills</h2>
+      <h2>Skills and Experience</h2>
       <ul className={styles.skills}>
         {skills.map((skill, index) => {
           if (skill.length === 0)
