@@ -1,6 +1,7 @@
-.about{
+.about {
   width: 100%;
-
+  display: flex;
+  justify-content: center;
 }
 
 .content {
@@ -68,7 +69,7 @@
 }
 
 @media (max-height: 350px) {
-   .content div{
+  .content div {
     display: none;
-   }
+  
 }
