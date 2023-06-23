@@ -1,12 +1,11 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" alt="Welcome to the dark side" srcset="https://raw.githubusercontent.com/alexx855/alexx855/master/public/stormtroopocat.png">
-  <img align="left" alt="May the Force be with you" width="40" height="40" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
+  <img style="visibility:visible;max-width:100%;margin-top: 20px;" align="left" alt="May the Force be with you" width="40" height="40" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
 </picture>
 
 # Hello there
 
-Freelance Full Stack & Mobile Developer.
-Argentina
+Freelance Full Stack & Mobile Developer. Argentina
 
 ## Skills and Experience
 
