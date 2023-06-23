@@ -9,7 +9,6 @@ Freelance Full Stack & Mobile Developer. Argentina
 ## Skills and Experience
 
 - Over 10 years of experience developing and maintaining web applications
-- Over 8 years of experience developing and maintaining web applications
 - Over 4 years of experience with JavaScript and TypeScript, Angular, Ionic, Firebase and Node, even with jQuery on the old days when i started.
 - Over 2 years of experience with React and Next.js.
 - Experience with Linux, Docker and Kubernetes, basic Shell and Python scripting, and CI/CD pipelines.
