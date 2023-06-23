@@ -18,7 +18,7 @@ export class PixiBackground extends Application {
 		const starBlue = Texture.from('/star_blue.png');
 		const starYellow = Texture.from('/star_yellow.png');
 
-		const starAmount = 300;
+		const starAmount = 600;
 		let cameraZ = 0;
 		const fov = 100;
 		const baseSpeed = 0.05;
