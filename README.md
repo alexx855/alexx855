@@ -1,6 +1,6 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" alt="Welcome to the dark side" srcset="https://raw.githubusercontent.com/alexx855/alexx855/master/public/stormtroopocat.png">
-  <img style="visibility:visible;max-width:100%;margin-top: 20px;" align="left" alt="May the Force be with you" width="40" height="40" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
+  <img alt="May the Force be with you" width="100" height="100" src="https://raw.githubusercontent.com/alexx855/alexx855/master/public/octobiwan.png">
 </picture>
 
 # Hello there
