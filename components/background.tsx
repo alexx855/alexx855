@@ -12,14 +12,20 @@ export function Background({ size, warpSpeed }: { size: { width: number, height:
       const pixiApp = new PixiBackground({
         backgroundColor: '#161b22',
         antialias: true,
-        // resolution: 1,
         resolution: window.devicePixelRatio || 1,
         autoDensity: true,
         width: size.width,
         height: size.height,
-        // width: canvasBgContainer.parentElement?.offsetWidth,
-        // height: canvasBgContainer.parentElement?.offsetHeight,
         container: canvasBgContainer,
+        backgroundAlpha: 1,
+        clearBeforeRender: true,
+        context: null,
+        powerPreference: 'high-performance',
+        forceCanvas: false,
+        sharedTicker: false,
+        premultipliedAlpha: true,
+        preserveDrawingBuffer: false,
+        hello: false,
       });
 
       canvasBgContainer.appendChild(pixiApp.view as any);
