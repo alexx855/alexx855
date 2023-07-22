@@ -1,12 +1,8 @@
 lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
-
 dependencies:
   '@react-spring/parallax':
-    specifier: ^9.7.1
+    specifier: ^9.7.2
     version: 9.7.2(react-dom@18.2.0)(react@18.2.0)
   '@types/node':
     specifier: 18.14.6
@@ -30,7 +26,7 @@ dependencies:
     specifier: 13.2.3
     version: 13.2.3(react-dom@18.2.0)(react@18.2.0)
   pixi.js:
-    specifier: ^7.1.4
+    specifier: ^7.2.4
     version: 7.2.4(@pixi/utils@7.2.4)
   react:
     specifier: 18.2.0
@@ -2799,3 +2795,7 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: false
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
