@@ -5,7 +5,7 @@
 
 # Hello there
 
-Full Stack Web & Mobile Developer. AI, Blockchain and Web3 enthusiast.
+Full Stack Web and Mobile Developer Exploring AI and Web3
 
 ## Skills and Experience
 
