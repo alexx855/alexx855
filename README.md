@@ -5,7 +5,7 @@
 
 # Hello there
 
-Full Stack Web and Mobile Developer Exploring AI and Web3
+Full Stack Web and Mobile Developer Exploring AI, DevOps and Web3
 
 ## Skills and Experience
 
