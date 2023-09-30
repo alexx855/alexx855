@@ -10,7 +10,7 @@ Full Stack Web developer, Exploring Web3, DevOps and AI.
 ## Skills and Experience
 
 - Over 10 years of experience developing and maintaining web applications, most PHP and MySQL, WordPress and WooCommerce.
-- Now working with JavaScript, TypeScript, Angular, RxJs, Ionic, Capacitor, Firebase and Node.
+- Currently working with JavaScript, TypeScript, Angular, RxJs, Ionic, Capacitor, Firebase and Node.
 - Experience working with different cloud providers: Amazon Web Services, Google Cloud and Digital Ocean and Linux, Docker, Kubernetes, Github Actions.
 - Solid knowledge of React and Next.js, GraphQL, MongoDB, PostgreSQL, Redis, Express, TailwindCSS, Bootstrap, Sass, jQuery.
 - Blockchain developer enthusiast, smart contracts development with Solidity, Foundry, Wagmi, Hardhat, Ethers.js, Viem
