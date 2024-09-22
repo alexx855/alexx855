@@ -175,23 +175,23 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
   return (
     <>
       <Head>
-        <title>Alex Pedersen - alexx855.eth</title>
+        <title>Alex Pedersen - alexx855</title>
         <meta
           name="description"
           content={about}
         />
         <link rel="icon" href="/favicon.svg" />
-        <meta name="og:title" content="Alex Pedersen - alexx855.eth" />
+        <meta name="og:title" content="Alex Pedersen - alexx855" />
         <meta name="og:description" content={about} />
         <meta name="og:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
         <meta name="og:url" content="https://alexx855.github.io/alexx855.eth/" />
         <meta name="og:type" content="website" />
-        <meta name="og:site_name" content="Alex Pedersen - alexx855.eth" />
+        <meta name="og:site_name" content="Alex Pedersen - alexx855" />
         <meta name="og:locale" content="en_US" />
         <meta name="twitter:card" content={about} />
         <meta name="twitter:site" content="@alexx855" />
         <meta name="twitter:creator" content="@alexx855" />
-        <meta name="twitter:title" content="Alex Pedersen - alexx855.eth" />
+        <meta name="twitter:title" content="Alex Pedersen - alexx855" />
         <meta name="twitter:description" content={about} />
         <meta name="twitter:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
         <meta name="twitter:image:alt" content="Alex Pedersen" />
@@ -268,6 +268,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           >
             <div className={styles.container}>
               <Contact />
+              <p className={styles.adios}>Adios <span>👋</span></p>
             </div>
           </ParallaxLayer>
 
