@@ -1,4 +1,5 @@
-import { Application, IApplicationOptions, IDestroyOptions, Sprite, Texture } from "pixi.js";
+import { Application, IApplicationOptions, IDestroyOptions, Sprite, Texture, DisplayObject } from "pixi.js";
+
 interface IPixiBackgroundOptions extends IApplicationOptions {
 	container: HTMLDivElement;
 }
@@ -43,7 +44,7 @@ export class PixiBackground extends Application {
 			star.sprite.anchor.x = 0.5;
 			star.sprite.anchor.y = 0.7;
 			randomizeStar(star, true);
-			this.stage.addChild(star.sprite);
+      this.stage.addChild(star.sprite as DisplayObject);
 			stars.push(star);
 		}
 
@@ -54,8 +55,7 @@ export class PixiBackground extends Application {
 			const deg = Math.random() * Math.PI * 2;
 			const distance = Math.random() * 50 + 1;
 			star.x = Math.cos(deg) * distance;
-			star.y = Math.sin(deg) * distance;
-
+      star.y = Math.sin(deg) * distance;
 		}
 
 		// Listen for animate update
@@ -84,14 +84,11 @@ export class PixiBackground extends Application {
 				star.sprite.scale.y = distanceScale * starBaseSize + distanceScale * speed * starStretch * distanceCenter / this.renderer.screen.width;
 				star.sprite.rotation = Math.atan2(dyCenter, dxCenter) + Math.PI / 2;
 			}
-		});
-
+    });
 	}
 
 	destroy(removeView?: boolean | undefined, stageOptions?: boolean | IDestroyOptions | undefined): void {
 		console.log('destroy')
 		super.destroy(removeView, stageOptions);
-	}
-
- 
+  }
 }
