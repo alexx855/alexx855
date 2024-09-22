@@ -1,32 +1,9 @@
+import { POAPsApiResponse } from "@/lib/fetchAndDownloadPOAPs";
 import styles from "../styles/poaps.module.css";
 import Image from "next/image";
 import Link from "next/link";
 export interface IPOAPsProps {
-  poaps: POAPsApiResponse[];
-}
-
-export interface POAPEvent {
-  id: number;
-  fancy_id: string;
-  name: string;
-  event_url: string;
-  image_url: string;
-  country: string;
-  city: string;
-  description: string;
-  year: number;
-  start_date: string;
-  end_date: string;
-  expiry_date: string;
-  supply: number;
-}
-
-export interface POAPsApiResponse {
-  event: POAPEvent;
-  tokenId: string;
-  owner: string;
-  chain: string;
-  created: string;
+  poaps: POAPsApiResponse;
 }
 
 export default function POAPs({ poaps }: IPOAPsProps) {
@@ -45,7 +22,7 @@ export default function POAPs({ poaps }: IPOAPsProps) {
           {poaps.map(poap => {
             return (
               <Link key={poap.tokenId} href={`https://app.poap.xyz/token/${poap.tokenId}`} target="_blank" rel="noopener noreferrer">
-                <Image width={100} height={100} src={`/poaps/poap-${poap.event.id}.png`} alt={poap.event.name} />
+                <Image width={100} height={100} src={`/poaps/poap-${poap.tokenId}.png`} alt={poap.event.name} />
                 <span>{poap.event.name}</span>
               </Link>
             );

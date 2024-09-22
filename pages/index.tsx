@@ -5,17 +5,17 @@ import { Ubuntu } from 'next/font/google'
 import { IParallax, Parallax, ParallaxLayer } from "@react-spring/parallax";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Background } from "@/components/background";
-import POAPs, { IPOAPsProps, POAPsApiResponse } from "@/components/poaps";
+import POAPs, { IPOAPsProps } from "@/components/poaps";
 import ScrollButton from "@/components/scroll-button";
 import About from "@/components/about";
 import Contact from "@/components/contact";
 import Skills from "@/components/skills";
 import { promises as fs } from 'fs';
 import path from 'path';
-import downloadPoapImageFromURL from '@/lib/downloadPoapImageFromURL';
+import fetchAndDownloadPOAPs, { type POAPsApiResponse } from '@/lib/fetchAndDownloadPOAPs';
 
 export interface HomeProps {
-  poaps: POAPsApiResponse[];
+  poaps: POAPsApiResponse;
   skills: string[];
   about: string;
 }
@@ -62,7 +62,6 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
   const [size, setSize] = useState<{ width: number, height: number }>({ width: 0, height: 0 });
   const [layout, setLayout] = useState<Adaptive>('mobile');
   const [warpSpeed, setWarpSpeed] = useState<number>(0);
-
   const parallaxConfig: Record<
     Adaptive, Record<Pages, PageConfig> & LayoutConfig
   > = {
@@ -147,8 +146,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
     return () => {
       window.removeEventListener("resize", onResize);
     }
-  }, [onResize]);
-
+  }, []);
 
   useEffect(() => {
     const curentRef = ref.current
@@ -156,12 +154,11 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
       return;
     }
 
-    const onScroll = (event: any) => {
-      console.log(event.target.scrollTop)
-      if (!event.target) {
+    const onScroll = (event: React.UIEvent<HTMLDivElement>) => {
+      if (!event.currentTarget) {
         return;
       }
-      setWarpSpeed(event.target.scrollTop / event.target.scrollHeight);
+      setWarpSpeed(event.currentTarget.scrollTop / event.currentTarget.scrollHeight);
     }
 
     //add eventlistener to window scroll
@@ -173,7 +170,6 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
       }
       curentRef.container.current.removeEventListener("scroll", onScroll);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ref.current]);
 
   return (
@@ -301,37 +297,19 @@ export const getStaticProps = async () => {
   const secs = readmeTxt.split( /#/g )
   // get the about section, after the # header and before the next header
   let about = secs[1].split('\n').slice(1).join('\n')
-  // trim the about text
-  // about = about.trim()
 
   // get the skills from the ## header
-  let skills = secs[3].split('\n').slice(1).map(s => s.substring(1).trim())
-  console.log(skills)
+  let skills = secs[3].split('\n').slice(1).map(s => s.substring(1))
+
   // filter out empty skills
   skills = skills.map(s => s.trim()).filter(s => s.length > 0)
 
   // get the POAPS from the API
-  const POAP_API = process.env.POAP_API
-  if (!POAP_API) {
+  if (!process.env.POAP_API) {
     throw new Error('POAP_API is not defined')
   }
 
-  const headers = new Headers()
-  headers.append('accept', 'application/json')
-  headers.append('x-api-key', POAP_API)
-  const poaps: IPOAPsProps['poaps'] = await (await fetch('https://api.poap.tech/actions/scan/alexx855.eth', { headers })).json()
-
-  if (poaps && poaps.length > 0) {
-    // download the images to the public folder
-    for (const poap of poaps) {
-      const filename = `poap-${poap.event.id}.png`
-      // check if the poap image already exists
-      if (await fs.access(path.join(process.cwd(), 'public/poaps', filename)).then(() => true).catch(() => false)) {
-        continue
-      }
-      await downloadPoapImageFromURL(poap.event.image_url, filename)
-    }
-  }
+  const poaps: IPOAPsProps['poaps'] = await fetchAndDownloadPOAPs(process.env.POAP_API, 'alexx855.eth')
 
   const props: HomeProps = {
     about,
