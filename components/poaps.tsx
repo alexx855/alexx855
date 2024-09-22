@@ -22,7 +22,7 @@ export default function POAPs({ poaps }: IPOAPsProps) {
           {poaps.map(poap => {
             return (
               <Link key={poap.tokenId} href={`https://app.poap.xyz/token/${poap.tokenId}`} target="_blank" rel="noopener noreferrer">
-                <Image width={100} height={100} src={`/poaps/poap-${poap.tokenId}.png`} alt={poap.event.name} />
+                <Image width={200} height={200} src={`/poaps/poap-${poap.tokenId}.webp`} alt={poap.event.name} />
                 <span>{poap.event.name}</span>
               </Link>
             );
