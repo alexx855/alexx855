@@ -146,7 +146,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
     return () => {
       window.removeEventListener("resize", onResize);
     }
-  }, []);
+  }, [onResize]);
 
   useEffect(() => {
     const curentRef = ref.current
@@ -170,7 +170,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
       }
       curentRef.container.current.removeEventListener("scroll", onScroll);
     }
-  }, [ref.current]);
+  }, []);
 
   return (
     <>
