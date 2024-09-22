@@ -13,7 +13,7 @@ export default function POAPs({ poaps }: IPOAPsProps) {
 
   return (
     <section id="poaps" className={styles.poaps}>
-      <h3>Road to Web3 🔗 alexx855.eth</h3>
+      <h3>Road to Web3 🔗</h3>
       <div>
         <p><Link href={"https://poap.xyz/"}>POAPs</Link> from the events and hackathons i{"'"}ve attended over the last years.</p>
       </div>
