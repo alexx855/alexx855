@@ -2,50 +2,21 @@
   width: 100%;
 }
 
-@keyframes wiggle {
-
-  0%,
-  to {
-    transform: rotate(-6deg)
-  }
-
-  50% {
-    transform: rotate(6deg)
-  }
-}
-
-.adios {
-  margin-top: 1rem;
-  margin-bottom: 0;
-}
-
-.adios span {
-  animation: wiggle 1s ease-in-out infinite;
-  display: inline-block;
-}
-
 .contactList {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 1rem;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+}
+
+.contactList li {
+  margin-bottom: 0.75rem;
 }
 
 .contactList a {
-  transition: transform 0.3s ease-in-out;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .contactList a:hover {
-  transform: scale(1.1);
-}
-
-@media (max-width: 610px) and (orientation: portrait) {
-  .contactList {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-  }
+  text-decoration: underline;
 }
