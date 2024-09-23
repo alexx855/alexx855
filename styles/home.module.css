@@ -12,6 +12,29 @@
   overflow: visible;
 }
 
+.deployment img {
+  margin-left: 6px;
+}
+
+.deployment a {
+  opacity: 0.5;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  line-height: 1;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 30px;
+}
+
+.deployment span {
+  font-size: 13px;
+}
+
+.deployment a:hover {
+  opacity: 1;
+}
+
 @media (max-width: 900px) {
   .container {
     max-width: 100%;

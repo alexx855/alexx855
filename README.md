@@ -15,4 +15,10 @@ Full stack developer, exploring Web3, DevOps and AI.
 - Solid knowledge of React and Next.js, GraphQL, MongoDB, PostgreSQL, Redis, Express, TailwindCSS, Bootstrap, Sass, jQuery.
 - Blockchain developer enthusiast, smart contracts development with Solidity, Foundry, Wagmi, Hardhat, Ethers.js, Viem
 
-### Adios 👋
+
+### Deploying to Akash Network
+
+1. Build your container image using Docker: `docker build -t <yourusername>/nextjs-akash .`. 
+2. Push your container image to a PUBLIC repository.
+3. Create a deployment file. You can find a quickstart example in `deploy.yaml` with an already public image if your just testing.
+4. Create the deployment on Akash console or using the CLI: `akash tx deployment create deploy.yaml --from <your_wallet_name> --node <node_url> --chain-id <chain_id> --fees 5000uakt`.

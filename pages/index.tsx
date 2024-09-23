@@ -13,6 +13,8 @@ import Skills from "@/components/skills";
 import { promises as fs } from 'fs';
 import path from 'path';
 import fetchAndDownloadPOAPs, { type POAPsApiResponse } from '@/lib/fetchAndDownloadPOAPs';
+import Link from 'next/link';
+import Image from "next/image";
 
 export interface HomeProps {
   poaps: POAPsApiResponse;
@@ -268,7 +270,12 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
           >
             <div className={styles.container}>
               <Contact />
-              <p className={styles.adios}>Adios <span>👋</span></p>
+              <p className={styles.deployment}>
+                <Link href="https://akash.network/" rel="noopener noreferrer" target="_blank">
+                  <span>Deployed permissionless with</span>
+                  <Image src="/akash-white-t.png" alt="Akash Network" width={75} height={15} />
+                </Link>
+              </p>
             </div>
           </ParallaxLayer>
 
