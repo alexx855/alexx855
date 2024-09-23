@@ -185,7 +185,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
         <link rel="icon" href="/favicon.svg" />
         <meta name="og:title" content="Alex Pedersen - alexx855" />
         <meta name="og:description" content={about} />
-        <meta name="og:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
+        <meta name="og:image" content="https://alexpedersen.dev/og.jpg" />
         <meta name="og:url" content="https://alexx855.github.io/alexx855.eth/" />
         <meta name="og:type" content="website" />
         <meta name="og:site_name" content="Alex Pedersen - alexx855" />
@@ -195,7 +195,7 @@ const Home: NextPage<HomeProps> = ({ about, skills, poaps }) => {
         <meta name="twitter:creator" content="@alexx855" />
         <meta name="twitter:title" content="Alex Pedersen - alexx855" />
         <meta name="twitter:description" content={about} />
-        <meta name="twitter:image" content="https://alexpedersen.dev/alexx855_aipunk_avatar_2023.png" />
+        <meta name="twitter:image" content="https://alexpedersen.dev/og.jpg" />
         <meta name="twitter:image:alt" content="Alex Pedersen" />
         <meta name="twitter:domain" content="https://alexpedersen.dev/" />
         <link
